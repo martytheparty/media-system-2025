@@ -1,0 +1,8 @@
+# Ignore all node_modules everywhere
+**/node_modules/
+
+# Ignore everything inside incoming/
+incoming/*
+
+# But keep the README (case-insensitive, in case it's .md or .MD)
+!incoming/README*
