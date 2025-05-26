@@ -1,0 +1,5 @@
+[
+  ".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".tiff", ".svg",
+  ".mp4", ".mov", ".webm", ".mkv", ".avi", ".wmv", ".flv", ".mpeg", ".mpg", ".m4v",
+  ".mp3", ".wav", ".ogg", ".m4a", ".flac", ".aac", ".wma", ".aiff", ".opus"
+]

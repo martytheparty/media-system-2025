@@ -1,0 +1,19 @@
+{
+  "name": "media-system-api-2025",
+  "version": "1.0.0",
+  "description": "This folder contains the Node.js API for listing files, creating batches, and serving metadata.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
