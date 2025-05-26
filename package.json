@@ -4,9 +4,13 @@
   "description": "My latest attempt of creating a way for me to share massive numbers of photos and videos.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+   "ng": "ng",
+   "ng-new-public": "ng new admin-ui --directory=public/admin-ui "
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@angular/cli": "^19.2.13"
+  }
 }
