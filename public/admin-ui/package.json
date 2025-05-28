@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:admin-ui": "node dist/admin-ui/server/server.mjs",
-    "install-admin-ui-material": "ng add @angular/material"
+    "install-admin-ui-material": "ng add @angular/material",
+    "cincoming": "ng g c incoming",
+    "cuploader": "ng g c uploader"
   },
   "private": true,
   "dependencies": {
