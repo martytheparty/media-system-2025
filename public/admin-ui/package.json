@@ -11,7 +11,8 @@
     "install-admin-ui-material": "ng add @angular/material",
     "cincoming": "ng g c incoming",
     "cuploader": "ng g c uploader",
-    "sapi": "ng g s services/api"
+    "sapi": "ng g s services/api",
+    "v20up": "ng update @angular/core@20 @angular/cli@20"
   },
   "private": true,
   "dependencies": {
