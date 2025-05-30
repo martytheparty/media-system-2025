@@ -10,7 +10,8 @@
     "serve:ssr:admin-ui": "node dist/admin-ui/server/server.mjs",
     "install-admin-ui-material": "ng add @angular/material",
     "cincoming": "ng g c incoming",
-    "cuploader": "ng g c uploader"
+    "cuploader": "ng g c uploader",
+    "sapi": "ng g s services/api"
   },
   "private": true,
   "dependencies": {
