@@ -16,6 +16,10 @@ app.use(express.static(path.resolve(__dirname, '.')));
 const fileRoutes = require('./routes/files');
 app.use('/api', fileRoutes); // This prefixes all routes in files.js with /api
 
+const galleryRoutes = require('./routes/gallery');
+app.use('/api/gallery', galleryRoutes); // This prefixes all routes in gallery.js with /api
+
+
 setupSwagger(app); // 👈 This adds /api-docs
 
 app.listen(port, () => {
