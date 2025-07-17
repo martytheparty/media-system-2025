@@ -7,6 +7,10 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 
 const app = express();
+
+app.use(express.json()); // For JSON bodies
+app.use(express.urlencoded({ extended: true })); // For form submissions (optional)
+
 const port = 3000;
 
 // Serve static files from the public folder

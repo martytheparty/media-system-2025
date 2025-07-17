@@ -3,7 +3,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/gallery/initialize:
+ * /gallery/initialize:
  *   post:
  *     summary: Initialize gallery
  *     description: Accepts a name and returns `true` if it's a valid string.
