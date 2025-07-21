@@ -10,14 +10,14 @@ async function getFiles(req, res) {
   }
 };
 
-function getMeta(req, res) {
-  getIncomingMediaMeta((err, meta) => {
-    if (err) {
-      console.error('Error reading incoming folder:', err);
-      return res.status(500).json({ error: 'Unable to read incoming folder' });
-    }
+async function getMeta(req, res) {
+  try {
+    const meta = await getIncomingMediaMeta();
     res.json(meta);
-  });
-};
+  } catch (err) {
+    console.error('Error getting meta data:', err);
+    res.status(500).json({ error: err.message });
+  }
+}
 
 module.exports = { getFiles, getMeta };
