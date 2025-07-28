@@ -48,4 +48,24 @@ async function getIncomingMediaMeta() {
   }
 }
 
-module.exports = { getMediaFiles, getIncomingMediaMeta };
+async function checkFileExistance(path) {
+  try {
+    await fs.access(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function createJsonFile(filePath, data) {
+  try {
+    const jsonString = JSON.stringify(data, null, 2); // pretty print with 2-space indent
+    await fs.writeFile(filePath, jsonString, 'utf8');
+    console.log('JSON file created');
+  } catch (err) {
+    console.error('Failed to write JSON file:', err);
+    throw err;
+  }
+}
+
+module.exports = { getMediaFiles, getIncomingMediaMeta, checkFileExistance, createJsonFile };
