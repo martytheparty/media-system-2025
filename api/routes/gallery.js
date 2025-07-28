@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const { initialize } = require('../controllers/galleryController');
+
 /**
  * @swagger
  * /gallery/initialize:
@@ -40,15 +42,6 @@ const router = express.Router();
  */
 
 
-router.post('/initialize', (req, res) => {
-  const { name } = req.body;
-
-  if (typeof name === 'string') {
-    console.log(`Received name: ${name}`);
-    res.json(true); // return true as JSON response
-  } else {
-    res.status(400).json({ error: 'Invalid request. Expected { name: string }' });
-  }
-});
+router.post('/initialize', initialize);
 
 module.exports = router;
