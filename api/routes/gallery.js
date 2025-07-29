@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { initialize } = require('../controllers/galleryController');
+const { initialize, isInitialized } = require('../controllers/galleryController');
 
 /**
  * @swagger
@@ -43,5 +43,18 @@ const { initialize } = require('../controllers/galleryController');
 
 
 router.post('/initialize', initialize);
+
+/**
+ * @swagger
+ * /gallery/isInitialized:
+ *   get:
+ *     summary: Get initialized stated
+ *     responses:
+ *       200:
+ *         description: returns true if the gallery has been initialized and false otherwise
+ */
+
+// Route: GET /api/files/meta
+router.get('/isInitialized', isInitialized);
 
 module.exports = router;
