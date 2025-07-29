@@ -17,14 +17,16 @@ async function initialize(req, res) {
 
       res.json(fileExists); // return true as JSON response
     }
-
-
-
-
   } else {
     res.status(400).json({ error: 'Invalid request. Expected { name: string }' });
   }
 
 }
 
-module.exports = { initialize };
+async function isInitialized(req, res) {
+  const fileExists = await checkFileExistance(galleryPath);
+
+  res.json(fileExists); // return true as JSON response
+}
+
+module.exports = { initialize, isInitialized };
