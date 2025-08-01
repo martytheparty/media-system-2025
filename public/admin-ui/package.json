@@ -14,7 +14,8 @@
     "sapi": "ng g s services/api",
     "v20up": "ng update @angular/core@20 @angular/cli@20",
     "m20up": "ng update @angular/material",
-    "cconfig": "ng g c config"
+    "cconfig": "ng g c config",
+    "gconfig": "ng generate guard guards/config"
   },
   "private": true,
   "dependencies": {
