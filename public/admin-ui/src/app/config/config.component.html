@@ -1,1 +1,13 @@
-<p>Config Coming Soon!</p>
+@if(initialized) {
+    <h1>Update Gallery</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label>Name: <input type="text" formControlName="name" /></label>
+      <button type="submit">Submit</button>
+    </form>
+} @else  {
+    <h1>Initialize Gallery</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label>Name: <input type="text" formControlName="name" /></label>
+      <button type="submit">Submit</button>
+    </form>
+}
