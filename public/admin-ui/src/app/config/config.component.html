@@ -1,13 +1,30 @@
-@if(initialized) {
-    <h1>Update Gallery</h1>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <label>Name: <input type="text" formControlName="name" /></label>
-      <button type="submit">Submit</button>
-    </form>
-} @else  {
-    <h1>Initialize Gallery</h1>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <label>Name: <input type="text" formControlName="name" /></label>
-      <button type="submit">Submit</button>
-    </form>
-}
+
+<div class="form-container">
+    <mat-card>
+    <mat-card-content>
+
+        @if(initialized) {
+            <h1>{{title}}</h1>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" >
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" />
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+            </form>
+        } @else  {
+            <h1>Initialize Gallery</h1>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" />
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+            </form>
+        }
+
+    </mat-card-content>
+    </mat-card>
+</div>
