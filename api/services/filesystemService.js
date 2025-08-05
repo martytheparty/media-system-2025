@@ -68,4 +68,14 @@ async function createJsonFile(filePath, data) {
   }
 }
 
-module.exports = { getMediaFiles, getIncomingMediaMeta, checkFileExistance, createJsonFile };
+async function getFileJsonContent(filePath) {
+   try {
+    const data = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading or parsing the file:', error);
+    throw error;
+  }
+}
+
+module.exports = { getMediaFiles, getIncomingMediaMeta, checkFileExistance, createJsonFile, getFileJsonContent };
