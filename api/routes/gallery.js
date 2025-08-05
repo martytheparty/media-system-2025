@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { initialize, isInitialized } = require('../controllers/galleryController');
+const { initialize, isInitialized, setTitle } = require('../controllers/galleryController');
 
 /**
  * @swagger
@@ -43,6 +43,47 @@ const { initialize, isInitialized } = require('../controllers/galleryController'
 
 
 router.post('/initialize', initialize);
+
+/**
+ * @swagger
+ * /gallery/setTitle:
+ *   post:
+ *     summary: set gallery title
+ *     description: Accepts a name and returns `true` if it's a valid string.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: Marty
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: boolean
+ *               example: true
+ *       400:
+ *         description: Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid request. Expected { name: string }"
+ */
+
+
+router.post('/setTitle', setTitle);
 
 /**
  * @swagger
