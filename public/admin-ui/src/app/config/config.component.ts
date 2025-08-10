@@ -1,5 +1,7 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +28,7 @@ import { Subscription } from 'rxjs';
 })
 export class ConfigComponent implements OnDestroy {
   apiService: ApiService = inject(ApiService);
+  router = inject(Router);
 
   initialized = false;
 
@@ -42,6 +45,7 @@ export class ConfigComponent implements OnDestroy {
       (response: boolean) => {
         this.initialized = response;
         this.title = "Update Gallery Title";
+        this.router.navigate(['/config']);
       }
     );
   }
@@ -51,6 +55,24 @@ export class ConfigComponent implements OnDestroy {
   }
 
   onSubmit() {
-    console.log('Submitted value:', this.form.value);
+    const title: string = this.form.value.name as string;
+
+    if (this.initialized) {
+      this.apiService
+      .setGalleryName(title)
+      .subscribe(
+          (initialized: boolean) => {
+            this.initialized = initialized;
+          } 
+      );
+    } else {
+      this.apiService
+          .initialize(title)
+          .subscribe(
+            (initialized: boolean) => {
+              this.initialized = initialized;
+            }
+          );
+    }
   }
 }

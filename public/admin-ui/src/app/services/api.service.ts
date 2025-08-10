@@ -27,4 +27,12 @@ export class ApiService {
   isInitialized(): Observable<boolean> {
     return this.http.get<boolean>(`${this.baseUrl}/gallery/isInitialized`)
   }
+
+  initialize(galleryName: string): Observable<boolean> {
+    return this.http.post<boolean>(`${this.baseUrl}/gallery/initialize`,{name: galleryName});
+  }
+
+  setGalleryName(galleryName: string): Observable<boolean> {
+    return this.http.post<boolean>(`${this.baseUrl}/gallery/setTitle`,{name: galleryName});
+  }
 }

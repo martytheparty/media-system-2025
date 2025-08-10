@@ -1,5 +1,7 @@
 // api/server.js
 const express = require('express');
+const cors = require('cors');
+
 const path = require('path');
 const setupSwagger = require('./swagger');
 
@@ -7,6 +9,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 
 const app = express();
+app.use(cors());
 
 app.use(express.json()); // For JSON bodies
 app.use(express.urlencoded({ extended: true })); // For form submissions (optional)
