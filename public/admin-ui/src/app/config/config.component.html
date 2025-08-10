@@ -5,25 +5,19 @@
 
         @if(initialized) {
             <h1>{{title}}</h1>
-            <form [formGroup]="form" (ngSubmit)="onSubmit()" >
-            <mat-form-field appearance="fill">
-                <mat-label>Name</mat-label>
-                <input matInput formControlName="name" />
-            </mat-form-field>
 
-            <button mat-raised-button color="primary" type="submit">Submit</button>
-            </form>
         } @else  {
             <h1>Initialize Gallery</h1>
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="fill">
-                <mat-label>Name</mat-label>
-                <input matInput formControlName="name" />
-            </mat-form-field>
-
-            <button mat-raised-button color="primary" type="submit">Submit</button>
-            </form>
         }
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" >
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+        </form>
 
     </mat-card-content>
     </mat-card>
