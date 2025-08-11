@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { initialize, isInitialized, setTitle } = require('../controllers/galleryController');
+const { initialize, isInitialized, setTitle, getTitle } = require('../controllers/galleryController');
 
 /**
  * @swagger
@@ -95,7 +95,20 @@ router.post('/setTitle', setTitle);
  *         description: returns true if the gallery has been initialized and false otherwise
  */
 
-// Route: GET /api/files/meta
+// Route: GET /api/gallery/isInitialized
 router.get('/isInitialized', isInitialized);
+
+/**
+ * @swagger
+ * /gallery/getTitle:
+ *   get:
+ *     summary: Get title
+ *     responses:
+ *       200:
+ *         description: returns title string if the gallery has been initialized and empty string otherwise
+ */
+
+// Route: GET /api/gallery/getTitle
+router.get('/getTitle', getTitle);
 
 module.exports = router;

@@ -53,4 +53,11 @@ async function isInitialized(req, res) {
   res.json(fileExists); // return true as JSON response
 }
 
-module.exports = { initialize, isInitialized, setTitle };
+async function getTitle(req, res) {
+  const fileExists = await checkFileExistance(galleryPath);
+  const gallery = await getFileJsonContent(galleryPath);
+
+  res.json(gallery.title); // return true as JSON response
+}
+
+module.exports = { initialize, isInitialized, setTitle, getTitle };
