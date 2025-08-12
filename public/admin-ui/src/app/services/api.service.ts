@@ -35,4 +35,8 @@ export class ApiService {
   setGalleryName(galleryName: string): Observable<boolean> {
     return this.http.post<boolean>(`${this.baseUrl}/gallery/setTitle`,{name: galleryName});
   }
+
+  getGalleryName(): Observable<string> {
+    return this.http.get<string>(`${this.baseUrl}/gallery/getTitle`);
+  }
 }
