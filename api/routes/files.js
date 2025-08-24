@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { getFiles, getMeta } = require('../controllers/filesController');
+const { getFiles, getMeta, checkTodaysDirectoryExistence } = require('../controllers/filesController');
 
 /**
  * @swagger
@@ -27,5 +27,18 @@ router.get('/files', getFiles);
 
 // Route: GET /api/files/meta
 router.get('/files/meta', getMeta);
+
+/**
+ * @swagger
+ * /files/todayExists:
+ *   get:
+ *     summary: Determine if today's directory exists
+ *     responses:
+ *       200:
+ *         description: Directory For Today Exists
+ */
+
+// Route: GET /api/files/todayExists
+router.get('/files/todayExists', checkTodaysDirectoryExistence);
 
 module.exports = router;
