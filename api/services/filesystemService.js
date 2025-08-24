@@ -48,13 +48,17 @@ async function getIncomingMediaMeta() {
   }
 }
 
-async function checkFileExistance(path) {
+async function checkFileExistence(path) {
   try {
     await fs.access(path);
     return true;
   } catch {
     return false;
   }
+}
+
+async function checkDirectoryExistence(path) {
+  return await checkFileExistence(path);
 }
 
 async function createJsonFile(filePath, data) {
@@ -78,4 +82,11 @@ async function getFileJsonContent(filePath) {
   }
 }
 
-module.exports = { getMediaFiles, getIncomingMediaMeta, checkFileExistance, createJsonFile, getFileJsonContent };
+module.exports = { 
+  getMediaFiles,
+  getIncomingMediaMeta,
+  checkFileExistence,
+  createJsonFile,
+  getFileJsonContent,
+  checkDirectoryExistence
+};
