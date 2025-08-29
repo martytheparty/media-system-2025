@@ -82,11 +82,26 @@ async function getFileJsonContent(filePath) {
   }
 }
 
+async function getDirectoryCount(directory) {
+  try {
+    const entries = await fs.readdir(directory, { withFileTypes: true });
+
+    // filter only directories
+    const directories = entries.filter(entry => entry.isDirectory());
+    return directories.length;
+  } catch (err) {
+    console.error(`Error reading directory: ${err.message}`);
+    return 0;
+  }
+}
+
+
 module.exports = { 
   getMediaFiles,
   getIncomingMediaMeta,
   checkFileExistence,
   createJsonFile,
   getFileJsonContent,
-  checkDirectoryExistence
+  checkDirectoryExistence,
+  getDirectoryCount
 };

@@ -1,4 +1,9 @@
-const { getMediaFiles, getIncomingMediaMeta, checkDirectoryExistence } = require('../services/filesystemService');
+const { 
+  getMediaFiles, 
+  getIncomingMediaMeta, 
+  checkDirectoryExistence,
+  getDirectoryCount: gDirectoryCount
+} = require('../services/filesystemService');
 
 async function getFiles(req, res) {
   try {
@@ -40,4 +45,25 @@ async function checkTodaysDirectoryExistence(req, res) {
   }
 }
 
-module.exports = { getFiles, getMeta, checkTodaysDirectoryExistence };
+async function getDirectoryCount(req, res) {
+  try {
+    // 1. Check to see if the directory exists if not return 0
+    // 2. If the directory exists look inside of it and return the number of directories inside of it
+    let { directoryName } = req.body;
+    directoryName = "../" + directoryName;
+    const found = await checkDirectoryExistence(directoryName);
+
+    if (!found) {
+      res.json({count:0});
+    } else {
+      const count = await gDirectoryCount(directoryName)
+      res.json({count: count});
+    }
+
+  } catch (err) {
+    console.error('Error Checking For Directory:', err);
+    res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = { getFiles, getMeta, checkTodaysDirectoryExistence, getDirectoryCount };
