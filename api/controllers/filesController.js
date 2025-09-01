@@ -66,4 +66,24 @@ async function getDirectoryCount(req, res) {
   }
 }
 
-module.exports = { getFiles, getMeta, checkTodaysDirectoryExistence, getDirectoryCount };
+async function getTodaysDirectory(req, res) {
+    // gallery/yyyy/mm/dd today
+
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // months are 0-based
+    const day = String(now.getDate()).padStart(2, '0');
+
+    const directory = `../gallery/${year}/${month}/${day}/`;
+    
+    res.json(directory);
+}
+
+module.exports = {
+  getFiles,
+  getMeta,
+  checkTodaysDirectoryExistence,
+  getDirectoryCount,
+  getTodaysDirectory
+};

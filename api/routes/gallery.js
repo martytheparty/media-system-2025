@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const { initialize, isInitialized, setTitle, getTitle } = require('../controllers/galleryController');
+const {
+    initialize,
+    isInitialized,
+    setTitle,
+    getTitle
+} = require('../controllers/galleryController');
 
 /**
  * @swagger

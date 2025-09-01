@@ -1,7 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const { getFiles, getMeta, checkTodaysDirectoryExistence, getDirectoryCount } = require('../controllers/filesController');
+const {
+    getFiles,
+    getMeta,
+    checkTodaysDirectoryExistence,
+    getDirectoryCount,
+    getTodaysDirectory
+} = require('../controllers/filesController');
 
 /**
  * @swagger
@@ -94,5 +100,18 @@ router.get('/files/todayExists', checkTodaysDirectoryExistence);
 
 
 router.post('/files/directoryCount', getDirectoryCount);
+
+/**
+ * @swagger
+ * /files/getTodaysDirectory:
+ *   get:
+ *     summary: Get Today's Directory ../gallery/2025/09/01/
+ *     responses:
+ *       200:
+ *         description: returns the directory that would/should be created today
+ */
+
+// Route: GET /api/files/getTodaysDirectory
+router.get('/files/getTodaysDirectory', getTodaysDirectory);
 
 module.exports = router;
