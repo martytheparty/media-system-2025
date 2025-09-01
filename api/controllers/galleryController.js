@@ -60,4 +60,9 @@ async function getTitle(req, res) {
   res.json(gallery.title); // return true as JSON response
 }
 
-module.exports = { initialize, isInitialized, setTitle, getTitle };
+module.exports = { 
+  initialize,
+  isInitialized,
+  setTitle,
+  getTitle
+};
