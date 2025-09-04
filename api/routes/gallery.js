@@ -5,7 +5,8 @@ const {
     initialize,
     isInitialized,
     setTitle,
-    getTitle
+    getTitle,
+    importMedia
 } = require('../controllers/galleryController');
 
 /**
@@ -115,5 +116,18 @@ router.get('/isInitialized', isInitialized);
 
 // Route: GET /api/gallery/getTitle
 router.get('/getTitle', getTitle);
+
+/**
+ * @swagger
+ * /gallery/importMedia:
+ *   get:
+ *     summary: Import Media
+ *     responses:
+ *       200:
+ *         description: returns true if the media files are found and moved.
+ */
+
+// Route: GET /api/gallery/importMedia
+router.get('/importMedia', importMedia);
 
 module.exports = router;

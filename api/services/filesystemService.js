@@ -95,6 +95,19 @@ async function getDirectoryCount(directory) {
   }
 }
 
+function getTodaysDirectoryName() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // months are 0-based
+  const day = String(now.getDate()).padStart(2, '0');
+
+  const directory = `../gallery/${year}/${month}/${day}/`;
+
+  return directory;
+  
+}
+
 
 module.exports = { 
   getMediaFiles,
@@ -103,5 +116,6 @@ module.exports = {
   createJsonFile,
   getFileJsonContent,
   checkDirectoryExistence,
-  getDirectoryCount
+  getDirectoryCount,
+  getTodaysDirectoryName
 };

@@ -1,4 +1,10 @@
-const { checkFileExistance, createJsonFile, getFileJsonContent } = require('../services/filesystemService');
+const { 
+  checkFileExistence, 
+  createJsonFile, 
+  getFileJsonContent,
+  getMediaFiles,
+  getTodaysDirectoryName
+} = require('../services/filesystemService');
 const galleryPath = '../gallery/gallery.json';
 
 async function initialize(req, res) {
@@ -60,9 +66,37 @@ async function getTitle(req, res) {
   res.json(gallery.title); // return true as JSON response
 }
 
+async function importMedia(req, res) {
+  // 1. Get all of the files in the incoming folder
+  const files = await getMediaFiles();
+  console.log("The files...", files);
+
+  // 2. Get the folder for today
+  const directory = getTodaysDirectoryName();
+
+  // 3. See if the folder exists
+  const exists = await checkFileExistence(directory);
+
+  console.log('exists', exists);
+
+  // 4. If not create it and create a first directory
+  if (exists) {
+    console.log("get the next directory");
+  } else {
+    console.log("create today's directory");
+  }
+
+  // 5. If yes then find out what the next directory needs to be and make it
+
+  // 6. Move all of the files into the new directory
+  
+  res.json({imported: true});
+}
+
 module.exports = { 
   initialize,
   isInitialized,
   setTitle,
-  getTitle
+  getTitle,
+  importMedia
 };

@@ -2,7 +2,8 @@ const {
   getMediaFiles, 
   getIncomingMediaMeta, 
   checkDirectoryExistence,
-  getDirectoryCount: gDirectoryCount
+  getDirectoryCount: gDirectoryCount,
+  getTodaysDirectoryName
 } = require('../services/filesystemService');
 
 async function getFiles(req, res) {
@@ -68,15 +69,7 @@ async function getDirectoryCount(req, res) {
 
 async function getTodaysDirectory(req, res) {
     // gallery/yyyy/mm/dd today
-
-    const now = new Date();
-
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0'); // months are 0-based
-    const day = String(now.getDate()).padStart(2, '0');
-
-    const directory = `../gallery/${year}/${month}/${day}/`;
-    
+    const directory = getTodaysDirectoryName();
     res.json(directory);
 }
 
