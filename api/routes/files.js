@@ -6,7 +6,8 @@ const {
     getMeta,
     checkTodaysDirectoryExistence,
     getDirectoryCount,
-    getTodaysDirectory
+    getTodaysDirectory,
+    createDirectory
 } = require('../controllers/filesController');
 
 /**
@@ -46,19 +47,6 @@ router.get('/files/meta', getMeta);
 
 // Route: GET /api/files/todayExists
 router.get('/files/todayExists', checkTodaysDirectoryExistence);
-
-// /**
-//  * @swagger
-//  * /files/directoryCount:
-//  *   get:
-//  *     summary: Returns the number of directories within a directory
-//  *     responses:
-//  *       200:
-//  *         description: Directory Count so the next directory to be created can be determined
-//  */
-
-// // Route: GET /api/files/directoryCount
-// router.get('/files/directoryCount', checkTodaysDirectoryExistence);
 
 /**
  * @swagger
@@ -100,6 +88,47 @@ router.get('/files/todayExists', checkTodaysDirectoryExistence);
 
 
 router.post('/files/directoryCount', getDirectoryCount);
+
+/**
+ * @swagger
+ * /files/createDirectory:
+ *   post:
+ *     summary: creates a new directory in the gallery folder
+ *     description: Accepts a directory name and creates one if it does not already exist.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - directoryName
+ *             properties:
+ *               directoryName:
+ *                 type: string
+ *                 example: yyyy
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: boolean
+ *               example: true
+ *       400:
+ *         description: Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid request. Expected { directoryName: string }"
+ */
+
+
+router.post('/files/createDirectory', createDirectory);
 
 /**
  * @swagger

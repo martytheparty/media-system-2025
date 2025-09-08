@@ -95,6 +95,39 @@ async function getDirectoryCount(directory) {
   }
 }
 
+function getTodaysDirectoryName() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // months are 0-based
+  const day = String(now.getDate()).padStart(2, '0');
+
+  const directory = `../gallery/${year}/${month}/${day}/`;
+
+  return directory;  
+}
+
+async function createDirectory(directory) {
+  directory = `../gallery/${directory}/`;
+
+  const exists = await checkDirectoryExistence(directory);
+
+  let created = true;
+
+  if (!exists) {
+
+    try {
+      await fs.mkdir(directory, { recursive: true });
+    } catch (err) {
+      console.error('Error creating directory:', err);
+      created = false;
+    }
+  }
+
+  return created;
+
+}
+
 
 module.exports = { 
   getMediaFiles,
@@ -103,5 +136,7 @@ module.exports = {
   createJsonFile,
   getFileJsonContent,
   checkDirectoryExistence,
-  getDirectoryCount
+  getDirectoryCount,
+  getTodaysDirectoryName,
+  createDirectory
 };
