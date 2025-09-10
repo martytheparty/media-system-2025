@@ -3,7 +3,8 @@ const {
   getIncomingMediaMeta, 
   checkDirectoryExistence,
   getDirectoryCount: gDirectoryCount,
-  getTodaysDirectoryName
+  getTodaysDirectoryName,
+  createDirectory: svcCreateDirectory
 } = require('../services/filesystemService');
 
 async function getFiles(req, res) {
@@ -73,10 +74,18 @@ async function getTodaysDirectory(req, res) {
     res.json(directory);
 }
 
+async function createDirectory(req, res) {
+    // gallery/yyyy/mm/dd today
+    let { directoryName } = req.body;
+    const result = await svcCreateDirectory(directoryName);
+    res.json({created: result});
+}
+
 module.exports = {
   getFiles,
   getMeta,
   checkTodaysDirectoryExistence,
   getDirectoryCount,
-  getTodaysDirectory
+  getTodaysDirectory,
+  createDirectory
 };

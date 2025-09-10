@@ -104,8 +104,28 @@ function getTodaysDirectoryName() {
 
   const directory = `../gallery/${year}/${month}/${day}/`;
 
-  return directory;
-  
+  return directory;  
+}
+
+async function createDirectory(directory) {
+  directory = `../gallery/${directory}/`;
+
+  const exists = await checkDirectoryExistence(directory);
+
+  let created = true;
+
+  if (!exists) {
+
+    try {
+      await fs.mkdir(directory, { recursive: true });
+    } catch (err) {
+      console.error('Error creating directory:', err);
+      created = false;
+    }
+  }
+
+  return created;
+
 }
 
 
@@ -117,5 +137,6 @@ module.exports = {
   getFileJsonContent,
   checkDirectoryExistence,
   getDirectoryCount,
-  getTodaysDirectoryName
+  getTodaysDirectoryName,
+  createDirectory
 };
