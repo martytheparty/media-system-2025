@@ -7,5 +7,5 @@ incoming/*
 # But keep the README (case-insensitive, in case it's .md or .MD)
 !incoming/README*
 
-
-gallery/gallery.json
+# Ignore GALLERY because there should not be any code in there
+gallery/*

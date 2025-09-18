@@ -3,7 +3,10 @@ const {
   createJsonFile, 
   getFileJsonContent,
   getMediaFiles,
-  getTodaysDirectoryName
+  getTodaysDirectoryName,
+  getDirectoryCount,
+  createDirectory, 
+  moveFileToDir
 } = require('../services/filesystemService');
 const galleryPath = '../gallery/gallery.json';
 
@@ -77,18 +80,33 @@ async function importMedia(req, res) {
   // 3. See if the folder exists
   const exists = await checkFileExistence(directory);
 
-  console.log('exists', exists);
 
   // 4. If not create it and create a first directory
   if (exists) {
-    console.log("get the next directory");
+    console.log("directory already exists");
   } else {
-    console.log("create today's directory");
+    await createDirectory(directory);
   }
 
-  // 5. If yes then find out what the next directory needs to be and make it
+  // 5. Get current folder count
+  const count = await getDirectoryCount(directory) + 1;
+  const nextDirectory = `${directory}${count}`;
 
-  // 6. Move all of the files into the new directory
+  // 6. If yes then find out what the next directory needs to be and make it
+
+  await createDirectory(nextDirectory);
+
+  // 7. Get List Of Files In Incoming Directory
+
+  const fileList = await getMediaFiles();
+  
+  // 7. Move all of the files into the new directory
+
+  fileList.forEach( 
+    (file) => {
+      moveFileToDir(file, nextDirectory);
+    }
+   );
   
   res.json({imported: true});
 }
