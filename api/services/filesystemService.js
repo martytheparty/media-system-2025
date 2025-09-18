@@ -16,6 +16,24 @@ async function getMediaFiles() {
   }
 }
 
+async function moveFileToDir(srcFile, destDir) {
+  try {
+    const destPathFile = destDir + '/' + srcFile;
+    // Move (rename) the file
+    await fs.rename(INCOMING_DIR + '\\' + srcFile, destPathFile);
+
+  } catch (err) {
+    // If rename fails across devices, fall back to copy + unlink
+    if (err.code === 'EXDEV') {
+      await fs.copyFile(srcFile, destFile);
+      await fs.unlink(srcFile);
+      console.log(`Moved (copy+delete) ${srcFile} -> ${destFile}`);
+    } else {
+      console.error('Error moving file:', err);
+    }
+  }
+}
+
 async function getIncomingMediaMeta() {
   try {
     const mediaFiles = await getMediaFiles();
@@ -138,5 +156,6 @@ module.exports = {
   checkDirectoryExistence,
   getDirectoryCount,
   getTodaysDirectoryName,
-  createDirectory
+  createDirectory,
+  moveFileToDir
 };
