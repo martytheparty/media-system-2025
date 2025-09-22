@@ -146,6 +146,19 @@ async function createDirectory(directory) {
 
 }
 
+async function updateManifest(title, files) {
+  const manifestPath = path.join(__dirname, "../../gallery/gallery.json"); 
+  let manifest = { };
+
+  try {
+      const content = await fs.readFile(manifestPath, 'utf8');
+      manifest = JSON.parse(content);
+  } catch (err) {
+      console.error('Error finding manifest - applicaton is not initialized:', err);
+  }  
+  manifest.events.push({ title, files });
+  await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2), 'utf8');
+}
 
 module.exports = { 
   getMediaFiles,
@@ -157,5 +170,6 @@ module.exports = {
   getDirectoryCount,
   getTodaysDirectoryName,
   createDirectory,
-  moveFileToDir
+  moveFileToDir,
+  updateManifest
 };
