@@ -4,10 +4,14 @@
     </div>
     <button mat-raised-button>Import All</button>
     <table>
+        <thead>
         <tr><th>File Name</th></tr>
+        </thead>
+        <tbody>
         @for(file of files; track file) {
             <tr><td>{{file}}</td></tr>
         }
+        </tbody>
     </table>
 
 </div>

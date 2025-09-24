@@ -37,7 +37,7 @@ async function setTitle(req, res) {
 
   if (typeof name === 'string') {
 
-    let fileExists = await checkFileExistance(galleryPath);
+    let fileExists = await checkFileExistence(galleryPath);
 
     if (fileExists) {
       // const gallery = { title: name, directories: [] };
@@ -58,13 +58,13 @@ async function setTitle(req, res) {
 }
 
 async function isInitialized(req, res) {
-  const fileExists = await checkFileExistance(galleryPath);
+  const fileExists = await checkFileExistence(galleryPath);
 
   res.json(fileExists); // return true as JSON response
 }
 
 async function getTitle(req, res) {
-  const fileExists = await checkFileExistance(galleryPath);
+  const fileExists = await checkFileExistence(galleryPath);
   const gallery = await getFileJsonContent(galleryPath);
 
   res.json(gallery.title); // return true as JSON response
