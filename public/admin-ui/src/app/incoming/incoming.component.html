@@ -2,7 +2,11 @@
     <div>
     There are {{meta?.count}} files ({{meta?.totalSizeMb}} MB) waiting in the incoming folder.
     </div>
-    <button mat-raised-button>Import All</button>
+    <button 
+    mat-raised-button
+    (click)="importFiles()"
+    >
+    Import All</button>
     <table>
         <thead>
         <tr><th>File Name</th></tr>

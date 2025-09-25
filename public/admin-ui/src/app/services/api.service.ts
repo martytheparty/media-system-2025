@@ -24,6 +24,10 @@ export class ApiService {
     return this.http.get<FileMetaData>(`${this.baseUrl}/files/meta`)
   }
 
+  importFiles(): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}/gallery/importMedia`)
+  }
+
   isInitialized(): Observable<boolean> {
     return this.http.get<boolean>(`${this.baseUrl}/gallery/isInitialized`)
   }
