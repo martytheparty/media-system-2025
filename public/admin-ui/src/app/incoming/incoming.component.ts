@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { ApiService } from '../services/api.service';
 import { FileMetaData } from '../interfaces/files-mesage.interface';
+import { take } from 'rxjs';
 
 
 @Component({
@@ -27,18 +28,32 @@ export class IncomingComponent {
 
 
   constructor() {
-    this.apiService.getIncomingFiles().subscribe(
+    this.getMediaFiles();
+    console.log(environment.apiBaseUrl);
+  }
+
+  importFiles(): void {
+    this.apiService.importFiles().pipe(take(1)).subscribe(
+      (result: boolean) => {
+        this.getMediaFiles();
+      }
+    )
+  }
+
+  getMediaFiles(): void {
+
+    this.apiService.getIncomingFiles().pipe(take(1)).subscribe(
       (files: string[]) => {
         this.files = files;
       }
     );
 
-    this.apiService.getIncomingFilesMeta().subscribe(
+    this.apiService.getIncomingFilesMeta().pipe(take(1)).subscribe(
       (metaData: FileMetaData) => {
         this.meta = metaData;
       }
     );
-    console.log(environment.apiBaseUrl);
+
   }
 
 }
