@@ -82,7 +82,6 @@ async function importMedia(req, res) {
 
   // 1. Get all of the files in the incoming folder
   const files = await getMediaFiles();
-  console.log("The files...", files);
 
   if (files.length === 0) {
     res.json({imported: false});
