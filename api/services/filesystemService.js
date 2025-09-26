@@ -156,7 +156,11 @@ async function updateManifest(title, files) {
   } catch (err) {
       console.error('Error finding manifest - applicaton is not initialized:', err);
   }  
-  manifest.events.push({ title, files });
+  manifest.events.push({ 
+    title, 
+    clean: false,
+    uploaded: false,
+    files });
   await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2), 'utf8');
 }
 
