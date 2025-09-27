@@ -6,7 +6,8 @@ const {
     isInitialized,
     setTitle,
     getTitle,
-    importMedia
+    importMedia,
+    getGalleryData
 } = require('../controllers/galleryController');
 
 /**
@@ -129,5 +130,18 @@ router.get('/getTitle', getTitle);
 
 // Route: GET /api/gallery/importMedia
 router.get('/importMedia', importMedia);
+
+/**
+ * @swagger
+ * /gallery/data:
+ *   get:
+ *     summary: Gallery JSON
+ *     responses:
+ *       200:
+ *         description: returns the current gallery JSON.
+ */
+
+// Route: GET /api/gallery/data
+router.get('/data', getGalleryData);
 
 module.exports = router;

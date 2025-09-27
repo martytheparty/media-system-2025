@@ -130,6 +130,12 @@ async function importMedia(req, res) {
     
     res.json({imported: true});
   }
+
+}
+
+async function getGalleryData(req, res) {
+  const gallery = await getFileJsonContent(galleryPath);
+  res.json(gallery); // return true as JSON response
 }
 
 module.exports = { 
@@ -137,5 +143,6 @@ module.exports = {
   isInitialized,
   setTitle,
   getTitle,
-  importMedia
+  importMedia,
+  getGalleryData
 };
