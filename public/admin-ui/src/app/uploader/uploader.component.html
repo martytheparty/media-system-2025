@@ -1,1 +1,19 @@
-<p>uploader works!</p>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Clean</th>
+            <th>Uploaded</th>
+            <th>File Count</th>
+        </tr>
+@for(event of galleryData?.events; track event) {
+
+        <tr>
+            <td>{{event.title}}</td>
+            <td>{{event.clean}}</td>
+            <td>{{event.uploaded}}</td>
+            <td>{{event.files.length}}</td>
+        </tr>
+
+}
+
+</table>
