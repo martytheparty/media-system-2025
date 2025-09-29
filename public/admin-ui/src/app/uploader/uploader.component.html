@@ -5,11 +5,23 @@
     </ng-container>
     <ng-container matColumnDef="clean">
         <th mat-header-cell *matHeaderCellDef> Clean </th>
-        <td mat-cell *matCellDef="let event"> {{ event.clean }} </td>
+        <td mat-cell *matCellDef="let event">
+            @if (event.clean) {
+                <mat-icon aria-hidden="false" aria-label="clean" fontIcon="check"></mat-icon>
+            } @else {
+                <mat-icon aria-hidden="false" aria-label="dirty" fontIcon="close"></mat-icon>
+            }
+        </td>
     </ng-container>
     <ng-container matColumnDef="uploaded">
         <th mat-header-cell *matHeaderCellDef> Uploaded </th>
-        <td mat-cell *matCellDef="let event"> {{ event.uploaded }} </td>
+        <td mat-cell *matCellDef="let event"> 
+            @if (event.uploaded) {
+                <mat-icon aria-hidden="false" aria-label="clean" fontIcon="check"></mat-icon>
+            } @else {
+                <mat-icon aria-hidden="false" aria-label="dirty" fontIcon="close"></mat-icon>
+            }
+        </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let event; columns: columnsToDisplay"></tr>
