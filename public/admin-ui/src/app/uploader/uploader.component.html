@@ -1,19 +1,16 @@
-    <table>
-        <tr>
-            <th>Title</th>
-            <th>Clean</th>
-            <th>Uploaded</th>
-            <th>File Count</th>
-        </tr>
-@for(event of galleryData?.events; track event) {
-
-        <tr>
-            <td>{{event.title}}</td>
-            <td>{{event.clean}}</td>
-            <td>{{event.uploaded}}</td>
-            <td>{{event.files.length}}</td>
-        </tr>
-
-}
-
+<table mat-table [dataSource]="events">
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let event"> {{ event.title }} </td>
+    </ng-container>
+    <ng-container matColumnDef="clean">
+        <th mat-header-cell *matHeaderCellDef> Clean </th>
+        <td mat-cell *matCellDef="let event"> {{ event.clean }} </td>
+    </ng-container>
+    <ng-container matColumnDef="uploaded">
+        <th mat-header-cell *matHeaderCellDef> Uploaded </th>
+        <td mat-cell *matCellDef="let event"> {{ event.uploaded }} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let event; columns: columnsToDisplay"></tr>
 </table>
