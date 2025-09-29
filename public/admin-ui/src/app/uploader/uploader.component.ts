@@ -4,12 +4,14 @@ import { take } from 'rxjs';
 import { GalleryData, GalleryEvent } from '../interfaces/gallery-data-response.interface';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-uploader',
   imports: [
     CommonModule,
-    MatTableModule
+    MatTableModule,
+    MatIconModule
   ],
   templateUrl: './uploader.component.html',
   styleUrl: './uploader.component.scss'
