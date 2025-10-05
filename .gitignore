@@ -9,3 +9,5 @@ incoming/*
 
 # Ignore GALLERY because there should not be any code in there
 gallery/*
+
+config.json

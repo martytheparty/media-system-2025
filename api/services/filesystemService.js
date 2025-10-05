@@ -164,6 +164,19 @@ async function updateManifest(title, files) {
   await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2), 'utf8');
 }
 
+async function setFtpConfig(config) {
+  const configPath = path.join(__dirname, "../../api/config/config.json");
+  let updated = false;
+  try {
+    await createJsonFile(configPath, config); 
+    updated = true;
+  } catch (err) {
+    console.error('Error creating config:', err);
+  }
+
+  return updated;
+}
+
 module.exports = { 
   getMediaFiles,
   getIncomingMediaMeta,
@@ -175,5 +188,6 @@ module.exports = {
   getTodaysDirectoryName,
   createDirectory,
   moveFileToDir,
-  updateManifest
+  updateManifest,
+  setFtpConfig
 };
