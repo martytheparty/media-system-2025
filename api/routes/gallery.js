@@ -7,7 +7,8 @@ const {
     setTitle,
     getTitle,
     importMedia,
-    getGalleryData
+    getGalleryData,
+    setConfig
 } = require('../controllers/galleryController');
 
 /**
@@ -143,5 +144,59 @@ router.get('/importMedia', importMedia);
 
 // Route: GET /api/gallery/data
 router.get('/data', getGalleryData);
+
+/**
+ * @swagger
+ * /gallery/setFtpConfig:
+ *   post:
+ *     summary: set ftp config (title, url, directory, pw encryped)
+ *     description: Accepts title, url, directory, and pw.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *               - url
+ *               - directory
+ *               - pw
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: My Website
+ *               url:
+ *                 type: string
+ *                 example: ftp://www.mywebsite.com
+ *               directory:
+ *                 type: string
+ *                 example: home
+ *               pw:
+ *                 type: string
+ *                 format: password
+ *                 example: mySecretEnvryptedPassword
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: boolean
+ *               example: true
+ *       400:
+ *         description: Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid request. Expected { title, url, directory, pw }"
+ */
+router.post('/setFtpConfig', setConfig);
+
+
 
 module.exports = router;

@@ -7,7 +7,8 @@ const {
   getDirectoryCount,
   createDirectory, 
   moveFileToDir,
-  updateManifest
+  updateManifest,
+  setFtpConfig
 } = require('../services/filesystemService');
 const galleryPath = '../gallery/gallery.json';
 
@@ -138,11 +139,37 @@ async function getGalleryData(req, res) {
   res.json(gallery); // return true as JSON response
 }
 
+async function setConfig(req, res) {
+  const { title, url, directory, pw } = req.body;
+
+  if (
+    typeof title === 'string'
+    && typeof url === 'string'
+    && typeof directory === 'string'
+    && typeof pw === 'string'
+  ) {
+
+    // Create a JSON object
+    const ftpConfig = {
+      title,
+      url,
+      directory,
+      pw
+    };
+
+      const config = await setFtpConfig(ftpConfig);
+      res.json({ config }); 
+  } else {
+    res.status(400).json({ error: 'Invalid request. Expected { title, url, directory, pw }' });
+  }
+}
+
 module.exports = { 
   initialize,
   isInitialized,
   setTitle,
   getTitle,
   importMedia,
-  getGalleryData
+  getGalleryData,
+  setConfig
 };
