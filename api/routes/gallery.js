@@ -176,6 +176,9 @@ router.get('/data', getGalleryData);
  *                 type: string
  *                 format: password
  *                 example: mySecretEnvryptedPassword
+ *               key:
+ *                 type: string
+ *                 example: 123
  *     responses:
  *       200:
  *         description: Success
@@ -193,7 +196,7 @@ router.get('/data', getGalleryData);
  *               properties:
  *                 error:
  *                   type: string
- *                   example: "Invalid request. Expected { title, url, directory, pw }"
+ *                   example: "Invalid request. Expected { title, url, directory, pw, key }"
  */
 router.post('/setFtpConfig', setConfig);
 

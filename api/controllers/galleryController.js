@@ -10,6 +10,11 @@ const {
   updateManifest,
   setFtpConfig
 } = require('../services/filesystemService');
+
+const { 
+  encrypt, 
+  decrypt 
+} = require('../services/ecryptionService');
 const galleryPath = '../gallery/gallery.json';
 
 async function initialize(req, res) {
@@ -140,24 +145,36 @@ async function getGalleryData(req, res) {
 }
 
 async function setConfig(req, res) {
-  const { title, url, directory, pw } = req.body;
+  const { title, url, directory, pw, key } = req.body;
 
   if (
     typeof title === 'string'
     && typeof url === 'string'
     && typeof directory === 'string'
     && typeof pw === 'string'
+    && typeof key === 'string'
   ) {
 
-    // Create a JSON object
+    // Encrypt The Password Based On title+url+directory+pw+key
+    // the key is optional and not stored so we won't be able 
+    // to recover the pw.
+    // Basically if someone is uncomfortable storing their
+    // pw in a rocoverable way they can use the key.  
+    // If the user forgets their key then they can probably
+    // reset their ftp password can setup this ftpConfig again.
+
+    const keyString = title + url + directory + pw + key;
+    const encrypted = encrypt(pw, keyString);
+
     const ftpConfig = {
       title,
       url,
       directory,
-      pw
+      pw: encrypted
     };
 
       const config = await setFtpConfig(ftpConfig);
+
       res.json({ config }); 
   } else {
     res.status(400).json({ error: 'Invalid request. Expected { title, url, directory, pw }' });
