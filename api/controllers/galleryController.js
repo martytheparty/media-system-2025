@@ -145,14 +145,16 @@ async function getGalleryData(req, res) {
 }
 
 async function setConfig(req, res) {
-  const { title, url, directory, pw, key } = req.body;
+  const { title, host, remoteDirectory, pw, key, websiteUrl, websiteDirectory } = req.body;
 
   if (
     typeof title === 'string'
-    && typeof url === 'string'
-    && typeof directory === 'string'
+    && typeof host === 'string'
+    && typeof remoteDirectory === 'string'
     && typeof pw === 'string'
     && typeof key === 'string'
+    && typeof websiteUrl === 'string'
+    && typeof websiteDirectory === 'string'
   ) {
 
     // Encrypt The Password Based On title+url+directory+pw+key
@@ -163,13 +165,15 @@ async function setConfig(req, res) {
     // If the user forgets their key then they can probably
     // reset their ftp password can setup this ftpConfig again.
 
-    const keyString = title + url + directory + pw + key;
+    const keyString = title + host + remoteDirectory + pw + websiteUrl + websiteDirectory + key;
     const encrypted = encrypt(pw, keyString);
 
     const ftpConfig = {
       title,
-      url,
-      directory,
+      host,
+      remoteDirectory,
+      websiteUrl,
+      websiteDirectory,
       pw: encrypted
     };
 
