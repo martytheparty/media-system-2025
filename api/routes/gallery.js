@@ -149,8 +149,8 @@ router.get('/data', getGalleryData);
  * @swagger
  * /gallery/setFtpConfig:
  *   post:
- *     summary: set ftp config (title, url, directory, pw encryped)
- *     description: Accepts title, url, directory, and pw.
+ *     summary: set ftp config (title, host, remoteDirectory, pw (encryped), websiteUrl, websiteDirectory and key)
+ *     description: Accepts title, host, remoteDirectory, pw, websiteUrl, websiteDirectory and key.
  *     requestBody:
  *       required: true
  *       content:
@@ -159,19 +159,27 @@ router.get('/data', getGalleryData);
  *             type: object
  *             required:
  *               - title
- *               - url
- *               - directory
+ *               - host
+ *               - remoteDirectory
+ *               - websiteUrl
+ *               - websiteDirectory
  *               - pw
  *             properties:
  *               title:
  *                 type: string
  *                 example: My Website
- *               url:
+ *               host:
  *                 type: string
  *                 example: ftp://www.mywebsite.com
- *               directory:
+ *               remoteDirectory:
  *                 type: string
  *                 example: home
+ *               websiteUrl:
+ *                 type: string
+ *                 example: www.mysite.com
+ *               websiteDirectory:
+ *                 type: string
+ *                 example: gallery
  *               pw:
  *                 type: string
  *                 format: password
@@ -196,7 +204,7 @@ router.get('/data', getGalleryData);
  *               properties:
  *                 error:
  *                   type: string
- *                   example: "Invalid request. Expected { title, url, directory, pw, key }"
+ *                   example: "Invalid request. Expected { title, host, remoteDirectory, pw, key }"
  */
 router.post('/setFtpConfig', setConfig);
 
