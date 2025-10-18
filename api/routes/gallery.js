@@ -180,6 +180,9 @@ router.get('/data', getGalleryData);
  *               websiteDirectory:
  *                 type: string
  *                 example: gallery
+ *               transferProtocal:
+ *                 type: string
+ *                 example: sftp
  *               pw:
  *                 type: string
  *                 format: password
