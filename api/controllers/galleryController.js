@@ -145,7 +145,7 @@ async function getGalleryData(req, res) {
 }
 
 async function setConfig(req, res) {
-  const { title, host, remoteDirectory, pw, key, websiteUrl, websiteDirectory } = req.body;
+  const { title, host, remoteDirectory, pw, key, websiteUrl, websiteDirectory, transferProtocal } = req.body;
 
   if (
     typeof title === 'string'
@@ -155,6 +155,7 @@ async function setConfig(req, res) {
     && typeof key === 'string'
     && typeof websiteUrl === 'string'
     && typeof websiteDirectory === 'string'
+    && typeof transferProtocal === 'string'
   ) {
 
     // Encrypt The Password Based On title+url+directory+pw+key
@@ -165,7 +166,7 @@ async function setConfig(req, res) {
     // If the user forgets their key then they can probably
     // reset their ftp password can setup this ftpConfig again.
 
-    const keyString = title + host + remoteDirectory + pw + websiteUrl + websiteDirectory + key;
+    const keyString = title + host + remoteDirectory + pw + websiteUrl + websiteDirectory + transferProtocal + key;
     const encrypted = encrypt(pw, keyString);
 
     const ftpConfig = {
@@ -174,6 +175,7 @@ async function setConfig(req, res) {
       remoteDirectory,
       websiteUrl,
       websiteDirectory,
+      transferProtocal,
       pw: encrypted
     };
 
@@ -181,7 +183,7 @@ async function setConfig(req, res) {
 
       res.json({ config }); 
   } else {
-    res.status(400).json({ error: 'Invalid request. Expected { title, url, directory, pw }' });
+    res.status(400).json({ error: 'Invalid request. Expected { title, host, remoteDirectory, websiteUrl, websiteDirectory, transferProtocol, pw }' });
   }
 }
 
