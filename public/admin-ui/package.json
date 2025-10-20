@@ -15,7 +15,8 @@
     "v20up": "ng update @angular/core@20 @angular/cli@20",
     "m20up": "ng update @angular/material",
     "cconfig": "ng g c config",
-    "gconfig": "ng generate guard guards/config"
+    "gconfig": "ng generate guard guards/config",
+    "ftpconfig": "ng g c config"
   },
   "private": true,
   "dependencies": {
