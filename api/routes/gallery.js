@@ -8,7 +8,8 @@ const {
     getTitle,
     importMedia,
     getGalleryData,
-    setConfig
+    setConfig,
+    getFtpConfig
 } = require('../controllers/galleryController');
 
 /**
@@ -211,6 +212,17 @@ router.get('/data', getGalleryData);
  */
 router.post('/setFtpConfig', setConfig);
 
+/**
+ * @swagger
+ * /gallery/getFtpConfig:
+ *   get:
+ *     summary: FTP JSON
+ *     responses:
+ *       200:
+ *         description: returns the current ftp config data.
+ */
 
+// Route: GET /api/gallery/ftpConfig
+router.get('/getFtpConfig', getFtpConfig);
 
 module.exports = router;

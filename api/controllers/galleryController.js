@@ -16,6 +16,7 @@ const {
   decrypt 
 } = require('../services/ecryptionService');
 const galleryPath = '../gallery/gallery.json';
+const ftpConfigPath = './config/config.json';
 
 async function initialize(req, res) {
   const { name } = req.body;
@@ -144,6 +145,11 @@ async function getGalleryData(req, res) {
   res.json(gallery); // return true as JSON response
 }
 
+async function getFtpConfig(req, res) {
+  const config = await getFileJsonContent(ftpConfigPath);
+  res.json(config); // return true as JSON response
+}
+
 async function setConfig(req, res) {
   const { title, host, remoteDirectory, pw, key, websiteUrl, websiteDirectory, transferProtocal } = req.body;
 
@@ -194,5 +200,6 @@ module.exports = {
   getTitle,
   importMedia,
   getGalleryData,
-  setConfig
-};
+  setConfig,
+  getFtpConfig
+}
