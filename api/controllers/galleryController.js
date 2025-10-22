@@ -146,7 +146,13 @@ async function getGalleryData(req, res) {
 }
 
 async function getFtpConfig(req, res) {
-  const config = await getFileJsonContent(ftpConfigPath);
+  let fileExists = await checkFileExistence(ftpConfigPath);
+  let config = {};
+
+  if (fileExists) {
+   config = await getFileJsonContent(ftpConfigPath);
+  }
+
   res.json(config); // return true as JSON response
 }
 
