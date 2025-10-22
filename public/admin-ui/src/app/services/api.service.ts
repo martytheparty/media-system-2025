@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { FileResponse } from '../interfaces/file-response.interface';
 import { FileMetaData } from '../interfaces/files-mesage.interface';
 import { map } from 'rxjs/operators';
-import { GalleryData } from '../interfaces/gallery-data-response.interface';
+import { FtpConfigData, GalleryData } from '../interfaces/gallery-data-response.interface';
 
 
 @Injectable({
@@ -47,5 +47,9 @@ export class ApiService {
 
   getGalleryData(): Observable<GalleryData> {
     return this.http.get<GalleryData>(`${this.baseUrl}/gallery/data`);
+  }
+
+  getConfigData(): Observable<FtpConfigData> {
+    return this.http.get<FtpConfigData>(`${this.baseUrl}/gallery/getFtpConfig`);
   }
 }
