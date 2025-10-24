@@ -49,7 +49,7 @@ export class ApiService {
     return this.http.get<GalleryData>(`${this.baseUrl}/gallery/data`);
   }
 
-  getConfigData(): Observable<FtpConfigData> {
-    return this.http.get<FtpConfigData>(`${this.baseUrl}/gallery/getFtpConfig`);
+  getConfigData(): Observable<FtpConfigData | {}> {
+    return this.http.get<FtpConfigData | {}>(`${this.baseUrl}/gallery/getFtpConfig`);
   }
 }
