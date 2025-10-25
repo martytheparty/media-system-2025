@@ -1,12 +1,47 @@
-@if (config === {} || config === undefined ) {
-
-    Create FTP COnfig?
-    {{config }}
-
-
+@if (found) {
+    Update FTP Config
 } @else {
-{{config | json}}
+    Setup FTP Config
 }
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4 p-4 max-w-md mx-auto">
+  <div>
+    <label for="title">Title</label>
+    <input id="title" type="text" formControlName="title" class="form-control" />
+  </div>
+
+  <div>
+    <label for="host">Host</label>
+    <input id="host" type="text" formControlName="host" class="form-control" />
+  </div>
+
+  <div>
+    <label for="remoteDirectory">Remote Directory</label>
+    <input id="remoteDirectory" type="text" formControlName="remoteDirectory" class="form-control" />
+  </div>
+
+  <div>
+    <label for="websiteUrl">Website URL</label>
+    <input id="websiteUrl" type="url" formControlName="websiteUrl" class="form-control" />
+  </div>
+
+  <div>
+    <label for="websiteDirectory">Website Directory</label>
+    <input id="websiteDirectory" type="text" formControlName="websiteDirectory" class="form-control" />
+  </div>
+
+  <div>
+    <label for="transferProtocal">Transfer Protocol</label>
+    <input id="transferProtocal" type="text" formControlName="transferProtocal" class="form-control" />
+  </div>
+
+  <div>
+    <label for="key">Key</label>
+    <input id="key" type="text" formControlName="key" class="form-control" />
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Submit</button>
+</form>
 
 
 
