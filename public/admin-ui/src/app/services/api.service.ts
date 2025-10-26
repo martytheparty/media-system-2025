@@ -52,4 +52,8 @@ export class ApiService {
   getConfigData(): Observable<FtpConfigData | {}> {
     return this.http.get<FtpConfigData | {}>(`${this.baseUrl}/gallery/getFtpConfig`);
   }
+
+  setConfigData(ftpConfigData: FtpConfigData): Observable<boolean> {
+    return this.http.post<boolean>(`${this.baseUrl}/gallery/setFtpConfig`, ftpConfigData);
+  }
 }
