@@ -1,7 +1,5 @@
 
-<div class="form-container">
-    <mat-card>
-    <mat-card-content>
+
 
         @if(initialized) {
             <h1>{{title}}</h1>
@@ -11,7 +9,7 @@
         }
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()" >
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" />
         </mat-form-field>
@@ -19,6 +17,4 @@
         <button mat-raised-button color="primary" type="submit">Submit</button>
         </form>
 
-    </mat-card-content>
-    </mat-card>
-</div>
+

@@ -1,0 +1,12 @@
+.material-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* space between fields */
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h1 {
+    text-align: center;
+}
