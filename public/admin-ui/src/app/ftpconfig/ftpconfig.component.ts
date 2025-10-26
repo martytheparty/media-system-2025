@@ -1,15 +1,19 @@
 import { Component, inject } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { FtpConfigData } from '../interfaces/gallery-data-response.interface';
-import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-ftpconfig',
   imports: [
-    CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   templateUrl: './ftpconfig.component.html',
   styleUrl: './ftpconfig.component.scss'
