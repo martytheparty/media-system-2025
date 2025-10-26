@@ -30,12 +30,25 @@ export class FtpconfigComponent {
     websiteUrl: new FormControl(''),
     websiteDirectory: new FormControl(''),
     transferProtocal: new FormControl(''),
-    key: new FormControl('')
+    key: new FormControl(''), // collected but never displayed or even stored
+    pw: new FormControl('') // collected but never displayed and stored encrypted
   });
 
   found = false;
 
   constructor() {
+    this.getConfigData();
+  }
+
+  onSubmit() {
+    const config = this.form.value as unknown as FtpConfigData;
+    this.apiService
+      .setConfigData(config)
+      .pipe(take(1))
+      .subscribe(this.getConfigData.bind(this));
+  }
+
+  getConfigData() {
     this.apiService.getConfigData().pipe(take(1)).subscribe(
       (data: FtpConfigData | {}) => {
         this.config = data;
@@ -66,11 +79,10 @@ export class FtpconfigComponent {
         if (record?.transferProtocal) {
           this.form.controls['transferProtocal'].setValue(record.transferProtocal);
         }
+
+        this.form.controls['pw'].setValue('');
+        this.form.controls['key'].setValue('');
       }
     )
-  }
-
-  onSubmit() {
-    alert(123);
   }
 }

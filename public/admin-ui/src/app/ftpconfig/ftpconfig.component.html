@@ -35,6 +35,16 @@
     <input matInput id="transferProtocal" formControlName="transferProtocal" />
   </mat-form-field>
 
+  <mat-form-field appearance="outline">
+    <mat-label>Key</mat-label>
+    <input matInput id="key" formControlName="key" />
+  </mat-form-field>
+
+    <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput id="pw" formControlName="pw" />
+  </mat-form-field>
+
   <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
     Submit
   </button>
