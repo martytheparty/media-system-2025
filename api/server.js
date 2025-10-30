@@ -26,6 +26,8 @@ app.use('/api', fileRoutes); // This prefixes all routes in files.js with /api
 const galleryRoutes = require('./routes/gallery');
 app.use('/api/gallery', galleryRoutes); // This prefixes all routes in gallery.js with /api
 
+const uploadRoutes = require('./routes/upload');
+app.use('/api/upload', uploadRoutes); 
 
 setupSwagger(app); // 👈 This adds /api-docs
 
