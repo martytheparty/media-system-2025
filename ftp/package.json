@@ -1,0 +1,16 @@
+{
+  "name": "ftp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ftp-srv": "^4.6.3"
+  },
+  "type": "module"
+}

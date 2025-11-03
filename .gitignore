@@ -10,4 +10,7 @@ incoming/*
 # Ignore GALLERY because there should not be any code in there
 gallery/*
 
+# Ignore everything in the test ftp upload folder
+ftp/uploads/*
+
 config.json
