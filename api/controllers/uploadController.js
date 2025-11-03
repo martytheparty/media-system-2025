@@ -1,5 +1,5 @@
 const { 
-  checkHostExists, checkFtpAndSftpPorts
+  checkHostExists, checkFtpAndSftpPorts, checkFtpCredentials
 } = require('../services/uploadService');
 
 async function checkForHostExistence(req, res) {
@@ -16,7 +16,16 @@ async function checkProtocols(req, res) {
     res.json(exists);
 }
 
+async function checkFtpCreds(req, res) {
+    const { hostName, userName, userPassword } = req.body;
+
+    const exists = await checkFtpCredentials(hostName, userName, userPassword);
+
+    res.json(exists);
+}
+
 module.exports = {
     checkForHostExistence,
-    checkProtocols
+    checkProtocols,
+    checkFtpCreds
 };
