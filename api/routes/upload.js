@@ -24,7 +24,7 @@ const {
  *             properties:
  *               hostName:
  *                 type: string
- *                 example: www.ilikeemail.com
+ *                 example: 127.0.0.1
  *     responses:
  *       200:
  *         description: Success
@@ -65,7 +65,7 @@ router.post('/checkHost', checkForHostExistence);
  *             properties:
  *               hostName:
  *                 type: string
- *                 example: www.ilikeemail.com
+ *                 example: 127.0.0.1
  *     responses:
  *       200:
  *         description: Success
@@ -109,13 +109,13 @@ router.post('/checkHost', checkForHostExistence);
  *             properties:
  *               hostName:
  *                 type: string
- *                 example: localhost
+ *                 example: 127.0.0.1
  *               userName:
  *                 type: string
- *                 example: testuserftp
+ *                 example: test
  *               userPassword:
  *                 type: string
- *                 example: testuserpw
+ *                 example: 1234
  *     responses:
  *       200:
  *         description: Success
