@@ -3,7 +3,8 @@ const router = express.Router();
 
 const {
     checkForHostExistence,
-    checkProtocols
+    checkProtocols,
+    checkFtpCreds
 } = require('../controllers/uploadController');
 
 /**
@@ -23,7 +24,7 @@ const {
  *             properties:
  *               hostName:
  *                 type: string
- *                 example: www.ilikeemail.com
+ *                 example: 127.0.0.1
  *     responses:
  *       200:
  *         description: Success
@@ -64,7 +65,7 @@ router.post('/checkHost', checkForHostExistence);
  *             properties:
  *               hostName:
  *                 type: string
- *                 example: www.ilikeemail.com
+ *                 example: 127.0.0.1
  *     responses:
  *       200:
  *         description: Success
@@ -87,5 +88,55 @@ router.post('/checkHost', checkForHostExistence);
 
 
 router.post('/checkProtocols', checkProtocols);
+
+router.post('/checkHost', checkForHostExistence);
+
+/**
+ * @swagger
+ * /upload/checkFtpCredentials:
+ *   post:
+ *     summary: Checks to see if the provided host and credentials work.
+ *     description: Accepts a host name and credentials and checks to see a successful connection can be made.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - hostName
+ *               - userName
+ *             properties:
+ *               hostName:
+ *                 type: string
+ *                 example: 127.0.0.1
+ *               userName:
+ *                 type: string
+ *                 example: test
+ *               userPassword:
+ *                 type: string
+ *                 example: 1234
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example: { ftp: true }
+ *       400:
+ *         description: Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid request. Expected { hostName: string }"
+ */
+
+
+router.post('/checkFtpCredentials', checkFtpCreds);
 
 module.exports = router;

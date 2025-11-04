@@ -1,5 +1,6 @@
 const dns = require("dns").promises;
 const net = require("net");
+const ftp = require("basic-ftp");
 
 async function checkHostExists(host) {
   try {
@@ -51,4 +52,21 @@ function isPortOpen(host, port, timeout = 3000) {
   });
 }
 
-module.exports = { checkHostExists, checkFtpAndSftpPorts };
+async function checkFtpCredentials( host, user, password ) {
+  const client = new ftp.Client();
+  client.ftp.verbose = false;
+
+  port = 21
+
+  try {
+    await client.access({ host, port, user, password });
+    await client.close();
+    return { success: true, protocol: "ftp", message: "FTP login successful" };
+  } catch (err) {
+    return { success: false, protocol: "ftp", message: err.message };
+  } finally {
+    client.close();
+  }
+}
+
+module.exports = { checkHostExists, checkFtpAndSftpPorts, checkFtpCredentials };
