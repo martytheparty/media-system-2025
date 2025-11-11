@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { FileResponse } from '../interfaces/file-response.interface';
 import { FileMetaData } from '../interfaces/files-mesage.interface';
 import { map } from 'rxjs/operators';
-import { FtpConfigData, GalleryData } from '../interfaces/gallery-data-response.interface';
+import { FtpConfigData, GalleryData, HostResult } from '../interfaces/gallery-data-response.interface';
 
 
 @Injectable({
@@ -55,5 +55,9 @@ export class ApiService {
 
   setConfigData(ftpConfigData: FtpConfigData): Observable<boolean> {
     return this.http.post<boolean>(`${this.baseUrl}/gallery/setFtpConfig`, ftpConfigData);
+  }
+
+  getCheckHost(hostName: string): Observable<HostResult> {
+    return this.http.post<HostResult>(`${this.baseUrl}/upload/checkHost`, {hostName});
   }
 }
