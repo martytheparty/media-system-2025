@@ -67,13 +67,13 @@
       </thead>
       <tbody>
         <tr>
-          <td>Host: {{ form.controls['host'].value }}</td>
+          <td>Host Availability<br> ({{ form.controls['host'].value }})</td>
           <td>
             <button mat-raised-button color="primary" (click)="testHost()">
               Test
             </button>
           </td>
-          <td>
+          <td class="centered">
 
             @if(hostStatus === 'ok') {
               <mat-icon color="primary">check_circle</mat-icon>
@@ -90,6 +90,48 @@
 
           </td>
         </tr>
+
+        <tr>
+          <td>Host Protocal<br> ({{ form.controls['host'].value }})</td>
+          <td>
+            <button mat-raised-button color="primary" (click)="testHostProtocals()">
+              Test
+            </button>
+          </td>
+          <td>
+            <div>
+            FTP: 
+            @if(ftpStatus === 'ok') {
+              <mat-icon color="primary">check_circle</mat-icon>
+            }
+
+            @if(ftpStatus === 'fail') {
+              <mat-icon color="warn">cancel</mat-icon>
+            }
+
+            @if(ftpStatus === 'unknown') {
+              <mat-icon color="disabled">help_outline</mat-icon>
+            }
+            </div>
+            <div>
+            SFTP: 
+            @if(sftpStatus === 'ok') {
+              <mat-icon color="primary">check_circle</mat-icon>
+            }
+
+            @if(sftpStatus === 'fail') {
+              <mat-icon color="warn">cancel</mat-icon>
+            }
+
+            @if(sftpStatus === 'unknown') {
+              <mat-icon color="disabled">help_outline</mat-icon>
+            }
+            </div>
+
+
+          </td>
+        </tr>
+
       </tbody>
     </table>
   </mat-dialog-content>

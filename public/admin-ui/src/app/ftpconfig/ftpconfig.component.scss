@@ -10,3 +10,17 @@
 h1 {
     text-align: center;
 }
+
+mat-icon {
+  top: 5px;
+  position: relative;
+}
+
+td.centered {
+  text-align: center;       /* horizontal centering */
+  vertical-align: middle;   /* vertical centering */
+}
+
+td {
+  padding: 5px;
+}

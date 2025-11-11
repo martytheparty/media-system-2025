@@ -19,8 +19,3 @@ export interface FtpConfigData {
   transferProtocal: "sftp" | "ftp";
   pw: string;
 }
-
-export interface HostResult {
-  success: boolean;
-  message: string;
-}

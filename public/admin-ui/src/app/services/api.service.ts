@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { FileResponse } from '../interfaces/file-response.interface';
 import { FileMetaData } from '../interfaces/files-mesage.interface';
 import { map } from 'rxjs/operators';
-import { FtpConfigData, GalleryData, HostResult } from '../interfaces/gallery-data-response.interface';
+import { FtpConfigData, GalleryData } from '../interfaces/gallery-data-response.interface';
+import { HostProtocalResult, HostResult } from '../interfaces/upload-response.interface';
 
 
 @Injectable({
@@ -58,6 +59,10 @@ export class ApiService {
   }
 
   getCheckHost(hostName: string): Observable<HostResult> {
-    return this.http.post<HostResult>(`${this.baseUrl}/upload/checkHost`, {hostName});
+    return this.http.post<HostResult>(`${this.baseUrl}/upload/checkHost`, { hostName });
+  }
+
+  getCheckHostProtocols(hostName: string): Observable<HostProtocalResult> {
+    return this.http.post<HostProtocalResult>(`${this.baseUrl}/upload/checkProtocols`, { hostName });
   }
 }

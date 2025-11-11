@@ -1,6 +1,6 @@
 import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { FtpConfigData, HostResult } from '../interfaces/gallery-data-response.interface';
+import { FtpConfigData } from '../interfaces/gallery-data-response.interface';
 import { take } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule,  MatDialog, MatDialogRef  } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { HostProtocalResult, HostResult, ResultType } from '../interfaces/upload-response.interface';
 
 @Component({
   selector: 'app-ftpconfig',
@@ -45,7 +46,9 @@ export class FtpconfigComponent {
 
   found = false;
 
-  hostStatus: 'unknown' | 'ok' | 'fail' = 'unknown';
+  hostStatus: ResultType = 'unknown';
+  ftpStatus: ResultType = 'unknown';
+  sftpStatus: ResultType = 'unknown';
 
   constructor(private dialog: MatDialog) {
     this.getConfigData();
@@ -103,6 +106,8 @@ export class FtpconfigComponent {
 
   closeDialog() {
     this.hostStatus = 'unknown';
+    this.ftpStatus = 'unknown';
+    this.sftpStatus = 'unknown';
     this.dialogRef.close();
   }
 
@@ -117,6 +122,30 @@ export class FtpconfigComponent {
             this.hostStatus = "ok";
           } else {
             this.hostStatus = "fail";
+          }
+
+        }
+      );
+    }
+  }
+
+  testHostProtocals() {
+    const host = this.form.controls['host'].value;
+
+    if (host)
+    {
+      this.apiService.getCheckHostProtocols(host).pipe(take(1)).subscribe(
+        (result: HostProtocalResult) => {
+          if (result.ftp) {
+            this.ftpStatus = "ok";
+          } else {
+            this.ftpStatus = "fail";
+          }
+
+          if (result.sftp) {
+            this.sftpStatus = "ok";
+          } else {
+            this.sftpStatus = "fail";
           }
 
         }
