@@ -47,7 +47,25 @@
     <mat-hint>Encrypted And Stored But Not Displayed.</mat-hint>
   </mat-form-field>
 
+  <button mat-raised-button color="primary" (click)="openDialog()">
+    Test Config
+  </button>
   <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
     Submit
   </button>
 </form>
+
+
+<ng-template #ftpConfigTemplate>
+  <h2 mat-dialog-title>FTP/SFTP Config Test</h2>
+  <mat-dialog-content>
+    <table>
+      <tbody>
+        <tr><td>Test Host: {{ form.controls['host'].value }}</td></tr>
+      </tbody>
+    </table>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="closeDialog()">Close</button>
+  </mat-dialog-actions>
+</ng-template>
