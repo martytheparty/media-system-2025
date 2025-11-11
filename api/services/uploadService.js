@@ -1,6 +1,7 @@
 const dns = require("dns").promises;
 const net = require("net");
 const ftp = require("basic-ftp");
+const SftpClient = require("ssh2-sftp-client");
 
 async function checkHostExists(host) {
   try {
@@ -69,4 +70,27 @@ async function checkFtpCredentials( host, user, password ) {
   }
 }
 
-module.exports = { checkHostExists, checkFtpAndSftpPorts, checkFtpCredentials };
+async function checkSftpCredentials(host, user, password) {
+  const sftp = new SftpClient();
+  const port = 22;
+
+  try {
+    await sftp.connect({ host, port, username: user, password });
+    return { success: true, protocol: "sftp", message: "SFTP login successful" };
+  } catch (err) {
+    return { success: false, protocol: "sftp", message: err.message };
+  } finally {
+    try {
+      await sftp.end();
+    } catch {
+      // ignore errors during cleanup
+    }
+  }
+}
+
+module.exports = { 
+  checkHostExists, 
+  checkFtpAndSftpPorts, 
+  checkFtpCredentials,
+  checkSftpCredentials 
+};

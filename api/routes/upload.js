@@ -4,7 +4,8 @@ const router = express.Router();
 const {
     checkForHostExistence,
     checkProtocols,
-    checkFtpCreds
+    checkFtpCreds,
+    checkSftpCreds
 } = require('../controllers/uploadController');
 
 /**
@@ -136,7 +137,53 @@ router.post('/checkHost', checkForHostExistence);
  *                   example: "Invalid request. Expected { hostName: string }"
  */
 
-
 router.post('/checkFtpCredentials', checkFtpCreds);
+
+/**
+ * @swagger
+ * /upload/checkSftpCredentials:
+ *   post:
+ *     summary: Checks to see if the provided host and credentials work.
+ *     description: Accepts a host name and credentials and checks to see a successful connection can be made.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - hostName
+ *               - userName
+ *             properties:
+ *               hostName:
+ *                 type: string
+ *                 example: 127.0.0.1
+ *               userName:
+ *                 type: string
+ *                 example: test
+ *               userPassword:
+ *                 type: string
+ *                 example: 1234
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example: { sftp: true }
+ *       400:
+ *         description: Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid request. Expected { hostName: string }"
+ */
+
+router.post('/checkSftpCredentials', checkSftpCreds);
 
 module.exports = router;
