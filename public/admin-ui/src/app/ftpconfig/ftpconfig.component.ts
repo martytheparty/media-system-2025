@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { FtpConfigData } from '../interfaces/gallery-data-response.interface';
 import { take } from 'rxjs';
@@ -6,6 +6,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule,  MatDialog, MatDialogRef  } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ftpconfig',
@@ -13,12 +14,16 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   templateUrl: './ftpconfig.component.html',
   styleUrl: './ftpconfig.component.scss'
 })
 export class FtpconfigComponent {
+  @ViewChild('ftpConfigTemplate') ftpConfigTemplate!: TemplateRef<void>;
+  dialogRef!: MatDialogRef<any>;
+
   apiService: ApiService = inject(ApiService);
 
   config: FtpConfigData | {} | undefined;
@@ -36,7 +41,7 @@ export class FtpconfigComponent {
 
   found = false;
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.getConfigData();
   }
 
@@ -84,5 +89,13 @@ export class FtpconfigComponent {
         this.form.controls['key'].setValue('');
       }
     )
+  }
+
+  openDialog() {
+    this.dialogRef = this.dialog.open(this.ftpConfigTemplate);
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }
