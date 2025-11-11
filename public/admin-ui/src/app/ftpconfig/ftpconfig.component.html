@@ -60,8 +60,36 @@
   <h2 mat-dialog-title>FTP/SFTP Config Test</h2>
   <mat-dialog-content>
     <table>
+      <thead>
+        <th>poperty</th>
+        <th>&nbsp;</th>
+        <th>result</th>
+      </thead>
       <tbody>
-        <tr><td>Test Host: {{ form.controls['host'].value }}</td></tr>
+        <tr>
+          <td>Host: {{ form.controls['host'].value }}</td>
+          <td>
+            <button mat-raised-button color="primary" (click)="testHost()">
+              Test
+            </button>
+          </td>
+          <td>
+
+            @if(hostStatus === 'ok') {
+              <mat-icon color="primary">check_circle</mat-icon>
+            }
+
+            @if(hostStatus === 'fail') {
+              <mat-icon color="warn">cancel</mat-icon>
+            }
+
+            @if(hostStatus === 'unknown') {
+              <mat-icon color="disabled">help_outline</mat-icon>
+            }
+
+
+          </td>
+        </tr>
       </tbody>
     </table>
   </mat-dialog-content>
