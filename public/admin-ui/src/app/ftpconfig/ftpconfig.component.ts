@@ -40,6 +40,7 @@ export class FtpconfigComponent {
     websiteUrl: new FormControl(''),
     websiteDirectory: new FormControl(''),
     transferProtocal: new FormControl(''),
+    userName: new FormControl(''),
     key: new FormControl(''), // collected but never displayed or even stored
     pw: new FormControl('') // collected but never displayed and stored encrypted
   });
@@ -92,6 +93,10 @@ export class FtpconfigComponent {
 
         if (record?.transferProtocal) {
           this.form.controls['transferProtocal'].setValue(record.transferProtocal);
+        }
+
+        if (record?.userName) {
+          this.form.controls['userName'].setValue(record.userName);
         }
 
         this.form.controls['pw'].setValue('');

@@ -157,7 +157,7 @@ async function getFtpConfig(req, res) {
 }
 
 async function setConfig(req, res) {
-  const { title, host, remoteDirectory, pw, key, websiteUrl, websiteDirectory, transferProtocal } = req.body;
+  const { title, host, remoteDirectory, pw, key, websiteUrl, websiteDirectory, transferProtocal, userName } = req.body;
 
   if (
     typeof title === 'string'
@@ -168,6 +168,7 @@ async function setConfig(req, res) {
     && typeof websiteUrl === 'string'
     && typeof websiteDirectory === 'string'
     && typeof transferProtocal === 'string'
+    && typeof userName === 'string'
   ) {
 
     // Encrypt The Password Based On title+url+directory+pw+key
@@ -188,6 +189,7 @@ async function setConfig(req, res) {
       websiteUrl,
       websiteDirectory,
       transferProtocal,
+      userName,
       pw: encrypted
     };
 
