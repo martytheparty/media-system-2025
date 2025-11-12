@@ -164,6 +164,7 @@ router.get('/data', getGalleryData);
  *               - remoteDirectory
  *               - websiteUrl
  *               - websiteDirectory
+ *               - userName
  *               - pw
  *             properties:
  *               title:
@@ -171,7 +172,7 @@ router.get('/data', getGalleryData);
  *                 example: My Website
  *               host:
  *                 type: string
- *                 example: ftp://www.mywebsite.com
+ *                 example: 127.0.0.1
  *               remoteDirectory:
  *                 type: string
  *                 example: home
@@ -184,10 +185,13 @@ router.get('/data', getGalleryData);
  *               transferProtocal:
  *                 type: string
  *                 example: sftp
+ *               userName:
+ *                 type: string
+ *                 example: test
  *               pw:
  *                 type: string
  *                 format: password
- *                 example: mySecretEnvryptedPassword
+ *                 example: 1234
  *               key:
  *                 type: string
  *                 example: 123

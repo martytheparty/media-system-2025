@@ -17,5 +17,6 @@ export interface FtpConfigData {
   websiteUrl: string;
   websiteDirectory: string;
   transferProtocal: "sftp" | "ftp";
+  userName: string;
   pw: string;
 }
