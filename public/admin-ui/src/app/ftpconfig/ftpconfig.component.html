@@ -137,6 +137,31 @@
           </td>
         </tr>
 
+        <tr>
+          <td>Check FTP Creds<br> ({{ form.controls['host'].value }})</td>
+          <td>
+            <button mat-raised-button color="primary" (click)="checkFtp()">
+              Test
+            </button>
+          </td>
+          <td class="centered">
+
+            @if(ftpCredsStatus === 'ok') {
+              <mat-icon color="primary">check_circle</mat-icon>
+            }
+
+            @if(ftpCredsStatus === 'fail') {
+              <mat-icon color="warn">cancel</mat-icon>
+            }
+
+            @if(ftpCredsStatus === 'unknown') {
+              <mat-icon color="disabled">help_outline</mat-icon>
+            }
+
+
+          </td>
+        </tr>
+
       </tbody>
     </table>
   </mat-dialog-content>

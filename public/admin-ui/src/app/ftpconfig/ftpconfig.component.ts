@@ -50,6 +50,7 @@ export class FtpconfigComponent {
   hostStatus: ResultType = 'unknown';
   ftpStatus: ResultType = 'unknown';
   sftpStatus: ResultType = 'unknown';
+  ftpCredsStatus: ResultType = 'unknown';
 
   constructor(private dialog: MatDialog) {
     this.getConfigData();
@@ -156,5 +157,9 @@ export class FtpconfigComponent {
         }
       );
     }
+  }
+
+  checkFtp():void {
+    alert("check ftp");
   }
 }
