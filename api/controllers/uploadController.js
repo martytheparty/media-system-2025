@@ -1,9 +1,18 @@
+const ftpConfigPath = './config/config.json';
+
 const { 
   checkHostExists, 
   checkFtpAndSftpPorts, 
   checkFtpCredentials,
   checkSftpCredentials
 } = require('../services/uploadService');
+
+const { 
+  checkFileExistence, 
+  getFileJsonContent
+} = require('../services/filesystemService');
+
+const { decrypt, createKey } = require('../services/ecryptionService');
 
 async function checkForHostExistence(req, res) {
     const { hostName } = req.body;
@@ -20,17 +29,59 @@ async function checkProtocols(req, res) {
 }
 
 async function checkFtpCreds(req, res) {
-    const { hostName, userName, userPassword } = req.body;
+    const { key } = req.body;
 
-    const exists = await checkFtpCredentials(hostName, userName, userPassword);
+    // get all of the data so the key can be generated.
+
+    let fileExists = await checkFileExistence(ftpConfigPath);
+    let config = {};
+
+    if (fileExists) {
+        config = await getFileJsonContent(ftpConfigPath);
+    }
+
+    const title = config.title;
+    const host = config.host;
+    const remoteDirectory = config.remoteDirectory;
+    const pw = config.pw;
+    const websiteUrl = config.websiteUrl;
+    const websiteDirectory = config.websiteDirectory;
+    const transferProtocal = config.transferProtocal;
+    const userName = config.userName;
+    const keyString = createKey(title, host, remoteDirectory, websiteUrl, websiteDirectory, transferProtocal, key);
+    const userPassword = decrypt(pw, keyString);
+
+    const exists = await checkFtpCredentials(host, userName, userPassword);
 
     res.json(exists);
 }
 
 async function checkSftpCreds(req, res) {
-    const { hostName, userName, userPassword } = req.body;
+    const { key } = req.body;
 
-    const exists = await checkSftpCredentials(hostName, userName, userPassword);
+    // get all of the data so the key can be generated.
+
+    let fileExists = await checkFileExistence(ftpConfigPath);
+    let config = {};
+
+    if (fileExists) {
+        config = await getFileJsonContent(ftpConfigPath);
+    }
+
+    const title = config.title;
+    const host = config.host;
+    const remoteDirectory = config.remoteDirectory;
+    const pw = config.pw;
+    const websiteUrl = config.websiteUrl;
+    const websiteDirectory = config.websiteDirectory;
+    const transferProtocal = config.transferProtocal;
+    const userName = config.userName;
+
+    //let keyString = "";
+    const keyString = createKey(title, host, remoteDirectory, websiteUrl, websiteDirectory, transferProtocal, key);
+    const userPassword = decrypt(pw, keyString);
+
+    const exists = await checkSftpCredentials(host, userName, userPassword);
 
     res.json(exists);
 }
