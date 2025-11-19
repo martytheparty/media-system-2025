@@ -105,18 +105,11 @@ router.post('/checkHost', checkForHostExistence);
  *           schema:
  *             type: object
  *             required:
- *               - hostName
- *               - userName
+ *               - key
  *             properties:
- *               hostName:
+ *               key:
  *                 type: string
- *                 example: 127.0.0.1
- *               userName:
- *                 type: string
- *                 example: test
- *               userPassword:
- *                 type: string
- *                 example: 1234
+ *                 example: 123
  *     responses:
  *       200:
  *         description: Success
@@ -152,18 +145,11 @@ router.post('/checkFtpCredentials', checkFtpCreds);
  *           schema:
  *             type: object
  *             required:
- *               - hostName
- *               - userName
+ *               - key
  *             properties:
- *               hostName:
+ *               key:
  *                 type: string
- *                 example: 127.0.0.1
- *               userName:
- *                 type: string
- *                 example: test
- *               userPassword:
- *                 type: string
- *                 example: 1234
+ *                 example: 123
  *     responses:
  *       200:
  *         description: Success

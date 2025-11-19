@@ -13,7 +13,7 @@ const {
 
 const { 
   encrypt, 
-  decrypt 
+  createKey
 } = require('../services/ecryptionService');
 const galleryPath = '../gallery/gallery.json';
 const ftpConfigPath = './config/config.json';
@@ -179,7 +179,7 @@ async function setConfig(req, res) {
     // If the user forgets their key then they can probably
     // reset their ftp password can setup this ftpConfig again.
 
-    const keyString = title + host + remoteDirectory + pw + websiteUrl + websiteDirectory + transferProtocal + key;
+    const keyString = createKey(title, host, remoteDirectory, websiteUrl, websiteDirectory, transferProtocal, key);
     const encrypted = encrypt(pw, keyString);
 
     const ftpConfig = {

@@ -4,6 +4,10 @@ const ALGORITHM = 'aes-256-gcm';
 const IV_LENGTH = 12; // Recommended for GCM
 const AUTH_TAG_LENGTH = 16;
 
+function createKey(title, host, remoteDirectory, websiteUrl, websiteDirectory, transferProtocal, key) {
+  return title + host + remoteDirectory + websiteUrl + websiteDirectory + transferProtocal + key;
+}
+
 /**
  * Derive a 32-byte key from a user-supplied key (string).
  * Ensures consistent key size for AES-256.
@@ -38,21 +42,21 @@ function encrypt(text, keyString) {
  * @param {string} keyString - The same key used during encryption.
  * @returns {string} Decrypted text.
  */
-function decrypt(encryptedText, keyString) {
-  const key = deriveKey(keyString);
-  const data = Buffer.from(encryptedText, 'base64');
+  function decrypt(encryptedText, keyString) {
+    const key = deriveKey(keyString);
+    const data = Buffer.from(encryptedText, 'base64');
 
-  const iv = data.subarray(0, IV_LENGTH);
-  const authTag = data.subarray(IV_LENGTH, IV_LENGTH + AUTH_TAG_LENGTH);
-  const ciphertext = data.subarray(IV_LENGTH + AUTH_TAG_LENGTH);
+    const iv = data.subarray(0, IV_LENGTH);
+    const authTag = data.subarray(IV_LENGTH, IV_LENGTH + AUTH_TAG_LENGTH);
+    const ciphertext = data.subarray(IV_LENGTH + AUTH_TAG_LENGTH);
 
-  const decipher = crypto.createDecipheriv(ALGORITHM, key, iv);
-  decipher.setAuthTag(authTag);
+    const decipher = crypto.createDecipheriv(ALGORITHM, key, iv);
+    decipher.setAuthTag(authTag);
 
-  let decrypted = decipher.update(ciphertext, undefined, 'utf8');
-  decrypted += decipher.final('utf8');
+    let decrypted = decipher.update(ciphertext, undefined, 'utf8');
+    decrypted += decipher.final('utf8');
 
-  return decrypted;
-}
+    return decrypted;
+  }
 
-module.exports = { encrypt, decrypt };
+module.exports = { encrypt, decrypt, createKey };
