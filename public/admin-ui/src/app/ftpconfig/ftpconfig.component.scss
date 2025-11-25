@@ -24,3 +24,20 @@ td.centered {
 td {
   padding: 5px;
 }
+
+.input-button-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.key-field {
+  width: 70px;
+}
+
+.key-status {
+  mat-icon {
+    top: -5px;
+    position: relative;
+  }
+}

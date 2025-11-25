@@ -6,7 +6,7 @@ import { FileResponse } from '../interfaces/file-response.interface';
 import { FileMetaData } from '../interfaces/files-mesage.interface';
 import { map } from 'rxjs/operators';
 import { FtpConfigData, GalleryData } from '../interfaces/gallery-data-response.interface';
-import { HostProtocalResult, HostResult } from '../interfaces/upload-response.interface';
+import { FtpLoginResult, HostProtocalResult, HostResult } from '../interfaces/upload-response.interface';
 
 
 @Injectable({
@@ -64,5 +64,9 @@ export class ApiService {
 
   getCheckHostProtocols(hostName: string): Observable<HostProtocalResult> {
     return this.http.post<HostProtocalResult>(`${this.baseUrl}/upload/checkProtocols`, { hostName });
+  }
+
+  postCheckFtpCredentials(key: string): Observable<FtpLoginResult> {
+    return this.http.post<FtpLoginResult>(`${this.baseUrl}/upload/checkFtpCredentials`, {key});
   }
 }

@@ -52,7 +52,7 @@
     <mat-hint>Encrypted And Stored But Not Displayed.</mat-hint>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" (click)="openDialog()">
+  <button type="button" mat-raised-button color="primary" (click)="openDialog()">
     Test Config
   </button>
   <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
@@ -140,11 +140,19 @@
         <tr>
           <td>Check FTP Creds<br> ({{ form.controls['host'].value }})</td>
           <td>
-            <button mat-raised-button color="primary" (click)="checkFtp()">
-              Test
-            </button>
+
+            <div class="flex">
+              <mat-form-field appearance="outline" class="key-field">
+                <input #key matInput placeholder="Enter key" />
+              </mat-form-field>
+
+              <button  (click)="checkFtp(key.value)" mat-raised-button color="primary" style="margin-left: 8px;">
+                Test
+              </button>
+            </div>
+
           </td>
-          <td class="centered">
+          <td class="centered key-status">
 
             @if(ftpCredsStatus === 'ok') {
               <mat-icon color="primary">check_circle</mat-icon>
