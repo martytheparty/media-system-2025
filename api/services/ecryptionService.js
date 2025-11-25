@@ -59,4 +59,12 @@ function encrypt(text, keyString) {
     return decrypted;
   }
 
-module.exports = { encrypt, decrypt, createKey };
+  function tryDecrypt(encryptedText, keyString) {
+    try {
+      return decrypt(encryptedText, keyString);
+    } catch (err) {
+      return false;
+    }
+  }
+
+module.exports = { encrypt, createKey, tryDecrypt };

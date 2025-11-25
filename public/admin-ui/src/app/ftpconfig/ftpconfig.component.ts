@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule,  MatDialog, MatDialogRef  } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { HostProtocalResult, HostResult, ResultType } from '../interfaces/upload-response.interface';
+import { FtpLoginResult, HostProtocalResult, HostResult, ResultType } from '../interfaces/upload-response.interface';
 
 @Component({
   selector: 'app-ftpconfig',
@@ -50,6 +50,7 @@ export class FtpconfigComponent {
   hostStatus: ResultType = 'unknown';
   ftpStatus: ResultType = 'unknown';
   sftpStatus: ResultType = 'unknown';
+  ftpCredsStatus: ResultType = 'unknown';
 
   constructor(private dialog: MatDialog) {
     this.getConfigData();
@@ -156,5 +157,18 @@ export class FtpconfigComponent {
         }
       );
     }
+  }
+
+  checkFtp(key: string):void {
+    this.apiService.postCheckFtpCredentials(key).pipe(take(1)).subscribe(
+      (result: FtpLoginResult) => {
+        if (result.success) {
+          this.ftpCredsStatus = "ok";
+        } else {
+          this.ftpCredsStatus = 'fail';
+        }
+      }
+    );
+
   }
 }
