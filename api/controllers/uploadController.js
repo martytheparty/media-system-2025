@@ -12,7 +12,7 @@ const {
   getFileJsonContent
 } = require('../services/filesystemService');
 
-const { decrypt, createKey } = require('../services/ecryptionService');
+const { tryDecrypt, createKey } = require('../services/ecryptionService');
 
 async function checkForHostExistence(req, res) {
     const { hostName } = req.body;
@@ -49,9 +49,18 @@ async function checkFtpCreds(req, res) {
     const transferProtocal = config.transferProtocal;
     const userName = config.userName;
     const keyString = createKey(title, host, remoteDirectory, websiteUrl, websiteDirectory, transferProtocal, key);
-    const userPassword = decrypt(pw, keyString);
+    const userPassword = tryDecrypt(pw, keyString);
 
-    const exists = await checkFtpCredentials(host, userName, userPassword);
+    let exists = false;
+    if(userPassword) {
+        exists = await checkFtpCredentials(host, userName, userPassword);
+    } else {
+        exists = {
+            message: "Login Failure",
+            protocal: "ftp",
+            success: false
+        }
+    }
 
     res.json(exists);
 }
@@ -80,7 +89,6 @@ async function checkSftpCreds(req, res) {
     //let keyString = "";
     const keyString = createKey(title, host, remoteDirectory, websiteUrl, websiteDirectory, transferProtocal, key);
     const userPassword = decrypt(pw, keyString);
-
     const exists = await checkSftpCredentials(host, userName, userPassword);
 
     res.json(exists);
