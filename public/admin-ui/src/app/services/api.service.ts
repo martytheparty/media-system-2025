@@ -69,4 +69,8 @@ export class ApiService {
   postCheckFtpCredentials(key: string): Observable<FtpLoginResult> {
     return this.http.post<FtpLoginResult>(`${this.baseUrl}/upload/checkFtpCredentials`, {key});
   }
+
+  postCheckSftpCredentials(key: string): Observable<FtpLoginResult> {
+    return this.http.post<FtpLoginResult>(`${this.baseUrl}/upload/checkSftpCredentials`, {key});
+  }
 }
