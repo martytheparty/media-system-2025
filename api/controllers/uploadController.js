@@ -88,7 +88,7 @@ async function checkSftpCreds(req, res) {
 
     //let keyString = "";
     const keyString = createKey(title, host, remoteDirectory, websiteUrl, websiteDirectory, transferProtocal, key);
-    const userPassword = decrypt(pw, keyString);
+    const userPassword = tryDecrypt(pw, keyString);
     const exists = await checkSftpCredentials(host, userName, userPassword);
 
     res.json(exists);

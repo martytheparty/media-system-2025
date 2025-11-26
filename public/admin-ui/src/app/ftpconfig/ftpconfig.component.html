@@ -169,7 +169,38 @@
 
           </td>
         </tr>
+        <tr>
+          <td>Check SFTP Creds<br> ({{ form.controls['host'].value }})</td>
+          <td>
 
+            <div class="flex">
+              <mat-form-field appearance="outline" class="key-field">
+                <input #skey matInput placeholder="Enter key" />
+              </mat-form-field>
+
+              <button  (click)="checkSftp(skey.value)" mat-raised-button color="primary" style="margin-left: 8px;">
+                Test
+              </button>
+            </div>
+
+          </td>
+          <td class="centered key-status">
+
+            @if(sftpCredsStatus === 'ok') {
+              <mat-icon color="primary">check_circle</mat-icon>
+            }
+
+            @if(sftpCredsStatus === 'fail') {
+              <mat-icon color="warn">cancel</mat-icon>
+            }
+
+            @if(sftpCredsStatus === 'unknown') {
+              <mat-icon color="disabled">help_outline</mat-icon>
+            }
+
+
+          </td>
+        </tr>
       </tbody>
     </table>
   </mat-dialog-content>

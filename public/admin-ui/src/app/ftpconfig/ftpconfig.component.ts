@@ -51,6 +51,7 @@ export class FtpconfigComponent {
   ftpStatus: ResultType = 'unknown';
   sftpStatus: ResultType = 'unknown';
   ftpCredsStatus: ResultType = 'unknown';
+  sftpCredsStatus: ResultType = 'unknown';
 
   constructor(private dialog: MatDialog) {
     this.getConfigData();
@@ -169,6 +170,17 @@ export class FtpconfigComponent {
         }
       }
     );
+  }
 
+  checkSftp(key: string):void {
+    this.apiService.postCheckSftpCredentials(key).pipe(take(1)).subscribe(
+      (result: FtpLoginResult) => {
+        if (result.success) {
+          this.sftpCredsStatus = "ok";
+        } else {
+          this.sftpCredsStatus = 'fail';
+        }
+      }
+    );
   }
 }
