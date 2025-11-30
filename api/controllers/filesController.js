@@ -4,7 +4,8 @@ const {
   checkDirectoryExistence,
   getDirectoryCount: gDirectoryCount,
   getTodaysDirectoryName,
-  createDirectory: svcCreateDirectory
+  createDirectory: svcCreateDirectory,
+  generateGalleryTestFile
 } = require('../services/filesystemService');
 
 async function getFiles(req, res) {
@@ -81,11 +82,21 @@ async function createDirectory(req, res) {
     res.json({created: result});
 }
 
+async function createFtpTestFileController (req, res) {
+  const result = await generateGalleryTestFile();
+  res.status(200).json({
+    message: 'FTP/SFTP test file created (stub)',
+    filename: result.filename,
+    filePath: result.filePath
+  });
+};
+
 module.exports = {
   getFiles,
   getMeta,
   checkTodaysDirectoryExistence,
   getDirectoryCount,
   getTodaysDirectory,
-  createDirectory
+  createDirectory,
+  createFtpTestFileController
 };

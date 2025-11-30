@@ -7,13 +7,15 @@ const {
     checkTodaysDirectoryExistence,
     getDirectoryCount,
     getTodaysDirectory,
-    createDirectory
+    createDirectory,
+    createFtpTestFileController
 } = require('../controllers/filesController');
 
 /**
  * @swagger
  * /files:
  *   get:
+ *     tags: [Files]
  *     summary: Get all media files
  *     responses:
  *       200:
@@ -26,6 +28,7 @@ router.get('/files', getFiles);
  * @swagger
  * /files/meta:
  *   get:
+ *     tags: [Files]
  *     summary: Get media metadata
  *     responses:
  *       200:
@@ -39,6 +42,7 @@ router.get('/files/meta', getMeta);
  * @swagger
  * /files/todayExists:
  *   get:
+ *     tags: [Files]
  *     summary: Determine if today's directory exists
  *     responses:
  *       200:
@@ -52,6 +56,7 @@ router.get('/files/todayExists', checkTodaysDirectoryExistence);
  * @swagger
  * /files/directoryCount:
  *   post:
+ *     tags: [Files]
  *     summary: get directory count
  *     description: Accepts a directory name and returns the number of directories inside of it or 0 if the directory does not exist.
  *     requestBody:
@@ -93,6 +98,7 @@ router.post('/files/directoryCount', getDirectoryCount);
  * @swagger
  * /files/createDirectory:
  *   post:
+ *     tags: [Files]
  *     summary: creates a new directory in the gallery folder
  *     description: Accepts a directory name and creates one if it does not already exist.
  *     requestBody:
@@ -134,6 +140,7 @@ router.post('/files/createDirectory', createDirectory);
  * @swagger
  * /files/getTodaysDirectory:
  *   get:
+ *     tags: [Files]
  *     summary: Get Today's Directory ../gallery/2025/09/01/
  *     responses:
  *       200:
@@ -142,5 +149,45 @@ router.post('/files/createDirectory', createDirectory);
 
 // Route: GET /api/files/getTodaysDirectory
 router.get('/files/getTodaysDirectory', getTodaysDirectory);
+
+/**
+ * @swagger
+ * /files/generate-ftp-file:
+ *   get:
+ *     tags: [Files]
+ *     summary: Generate a temporary file for FTP/SFTP testing
+ *     description: Creates a uniquely named file locally that can be used to test FTP/SFTP upload functionality. The response includes the filename and local path.
+ *     responses:
+ *       200:
+ *         description: Test file created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: FTP/SFTP test file created
+ *                 filename:
+ *                   type: string
+ *                   example: ftp-test-1699999999999.txt
+ *                 filePath:
+ *                   type: string
+ *                   example: ./ftp-test-files/ftp-test-1699999999999.txt
+ *       500:
+ *         description: Failed to create test file
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Failed to create FTP/SFTP test file
+ *                 error:
+ *                   type: string
+ *                   example: "ENOENT: no such file or directory"
+ */
+router.get('/files/generate-ftp-file', createFtpTestFileController);
 
 module.exports = router;

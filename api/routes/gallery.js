@@ -16,6 +16,7 @@ const {
  * @swagger
  * /gallery/initialize:
  *   post:
+ *     tags: [Gallery]
  *     summary: Initialize gallery
  *     description: Accepts a name and returns `true` if it's a valid string.
  *     requestBody:
@@ -57,6 +58,7 @@ router.post('/initialize', initialize);
  * @swagger
  * /gallery/setTitle:
  *   post:
+ *     tags: [Gallery]
  *     summary: set gallery title
  *     description: Accepts a name and returns `true` if it's a valid string.
  *     requestBody:
@@ -98,6 +100,7 @@ router.post('/setTitle', setTitle);
  * @swagger
  * /gallery/isInitialized:
  *   get:
+ *     tags: [Gallery]
  *     summary: Get initialized stated
  *     responses:
  *       200:
@@ -111,6 +114,7 @@ router.get('/isInitialized', isInitialized);
  * @swagger
  * /gallery/getTitle:
  *   get:
+ *     tags: [Gallery]
  *     summary: Get title
  *     responses:
  *       200:
@@ -124,6 +128,7 @@ router.get('/getTitle', getTitle);
  * @swagger
  * /gallery/importMedia:
  *   get:
+ *     tags: [Gallery]
  *     summary: Import Media
  *     responses:
  *       200:
@@ -137,6 +142,7 @@ router.get('/importMedia', importMedia);
  * @swagger
  * /gallery/data:
  *   get:
+ *     tags: [Gallery]
  *     summary: Gallery JSON
  *     responses:
  *       200:
@@ -150,6 +156,7 @@ router.get('/data', getGalleryData);
  * @swagger
  * /gallery/setFtpConfig:
  *   post:
+ *     tags: [Gallery]
  *     summary: set ftp config (title, host, remoteDirectory, pw (encryped), websiteUrl, websiteDirectory and key)
  *     description: Accepts title, host, remoteDirectory, pw, websiteUrl, websiteDirectory and key.
  *     requestBody:
@@ -220,6 +227,7 @@ router.post('/setFtpConfig', setConfig);
  * @swagger
  * /gallery/getFtpConfig:
  *   get:
+ *     tags: [Gallery]
  *     summary: FTP JSON
  *     responses:
  *       200:

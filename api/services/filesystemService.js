@@ -177,6 +177,36 @@ async function setFtpConfig(config) {
   return updated;
 }
 
+async function generateGalleryTestFile() {
+  try {
+    // Dedicated test directory
+    const testDir = path.join(__dirname, '../../gallery/test-files');
+
+    // Ensure directory exists
+    await fs.mkdir(testDir, { recursive: true });
+
+    // Optional: clear previous test files
+    const existingFiles = await fs.readdir(testDir);
+    for (const file of existingFiles) {
+      await fs.unlink(path.join(testDir, file));
+    }
+
+    // Generate a unique filename
+    const timestamp = Date.now();
+    const filename = `gallery-test-${timestamp}.txt`;
+    const filePath = path.join(testDir, filename);
+
+    // Write some test content
+    const content = `This is a gallery test file created at ${new Date().toISOString()}`;
+    await fs.writeFile(filePath, content, 'utf8');
+
+    return { filename, filePath };
+  } catch (err) {
+    console.error('Error generating gallery test file:', err);
+    throw err;
+  }
+}
+
 module.exports = { 
   getMediaFiles,
   getIncomingMediaMeta,
@@ -189,5 +219,6 @@ module.exports = {
   createDirectory,
   moveFileToDir,
   updateManifest,
-  setFtpConfig
+  setFtpConfig,
+  generateGalleryTestFile
 };

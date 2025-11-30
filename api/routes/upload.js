@@ -12,6 +12,7 @@ const {
  * @swagger
  * /upload/checkHost:
  *   post:
+ *     tags: [Upload]
  *     summary: Checks to see if the provided host exists
  *     description: Accepts a host name and checks to see if the DNS exists.
  *     requestBody:
@@ -53,6 +54,7 @@ router.post('/checkHost', checkForHostExistence);
  * @swagger
  * /upload/checkProtocols:
  *   post:
+ *     tags: [Upload]
  *     summary: Checks to see if the provided host supports ftp and/or sftp
  *     description: Accepts a host name and checks to see if the FTP/SFTP.
  *     requestBody:
@@ -96,6 +98,7 @@ router.post('/checkHost', checkForHostExistence);
  * @swagger
  * /upload/checkFtpCredentials:
  *   post:
+ *     tags: [Upload]
  *     summary: Checks to see if the provided host and credentials work.
  *     description: Accepts a host name and credentials and checks to see a successful connection can be made.
  *     requestBody:
@@ -136,6 +139,7 @@ router.post('/checkFtpCredentials', checkFtpCreds);
  * @swagger
  * /upload/checkSftpCredentials:
  *   post:
+ *     tags: [Upload]
  *     summary: Checks to see if the provided host and credentials work.
  *     description: Accepts a host name and credentials and checks to see a successful connection can be made.
  *     requestBody:
