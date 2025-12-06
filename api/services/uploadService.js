@@ -53,20 +53,47 @@ function isPortOpen(host, port, timeout = 3000) {
   });
 }
 
-async function checkFtpCredentials( host, user, password ) {
+async function ftpConnect(host, user, password) {
   const client = new ftp.Client();
   client.ftp.verbose = false;
 
-  port = 21
+  const port = 21
+  await client.access({ host, port, user, password });
+  return client; // return the connected client
+}
+
+async function ftpDisconnect(client) {
+  if (!client) return;
+  try {
+    await client.close();
+  } catch (err) {
+    console.error("Error closing FTP client:", err.message);
+  }
+}
+
+async function checkFtpCredentials( host, user, password ) {
+  let client; // declare outside so finally can access it
 
   try {
-    await client.access({ host, port, user, password });
-    await client.close();
+    client = await ftpConnect(host, user, password );
     return { success: true, protocol: "ftp", message: "FTP login successful" };
   } catch (err) {
     return { success: false, protocol: "ftp", message: err.message };
   } finally {
-    client.close();
+    await ftpDisconnect(client);
+  }
+}
+
+async function uploadFtpFile(host, user, password, localPath, remotePath) {
+  let client;
+  try {
+    client = await ftpConnect(host, user, password);
+    await client.uploadFrom(localPath, remotePath);
+    return { success: true, message: `Uploaded to ${remotePath}` };
+  } catch (err) {
+    return { success: false, message: err.message };
+  } finally {
+    await ftpDisconnect(client);
   }
 }
 
@@ -88,9 +115,23 @@ async function checkSftpCredentials(host, user, password) {
   }
 }
 
+async function checkWebsiteUrl(websiteUrl, websiteDirectory, file) {
+  const url = `http://${websiteUrl.replace(/\/$/, "")}/${websiteDirectory.replace(/\/$/, "")}/${file}`;
+
+  try {
+    const response = await fetch(url, { method: "HEAD" }); // HEAD = faster check
+    return response.ok; // true if 200-299
+  } catch (error) {
+    console.error(`Error checking URL: ${url}`, error);
+    return false;
+  }
+}
+
 module.exports = { 
   checkHostExists, 
   checkFtpAndSftpPorts, 
   checkFtpCredentials,
-  checkSftpCredentials 
+  checkSftpCredentials ,
+  uploadFtpFile,
+  checkWebsiteUrl
 };

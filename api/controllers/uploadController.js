@@ -4,12 +4,15 @@ const {
   checkHostExists, 
   checkFtpAndSftpPorts, 
   checkFtpCredentials,
-  checkSftpCredentials
+  checkSftpCredentials,
+  uploadFtpFile,
+  checkWebsiteUrl
 } = require('../services/uploadService');
 
 const { 
   checkFileExistence, 
-  getFileJsonContent
+  getFileJsonContent,
+  generateGalleryTestFile
 } = require('../services/filesystemService');
 
 const { tryDecrypt, createKey } = require('../services/ecryptionService');
@@ -65,6 +68,61 @@ async function checkFtpCreds(req, res) {
     res.json(exists);
 }
 
+async function uploadTestFtpUpload(req, res) {
+    const { key } = req.body;
+
+    // get all of the data so the key can be generated.
+
+    let fileExists = await checkFileExistence(ftpConfigPath);
+    let config = {};
+
+    if (fileExists) {
+        config = await getFileJsonContent(ftpConfigPath);
+    }
+
+    const title = config.title;
+    const host = config.host;
+    const remoteDirectory = config.remoteDirectory;
+    const pw = config.pw;
+    const websiteUrl = config.websiteUrl;
+    const websiteDirectory = config.websiteDirectory;
+    const transferProtocal = config.transferProtocal;
+    const userName = config.userName;
+    const keyString = createKey(title, host, remoteDirectory, websiteUrl, websiteDirectory, transferProtocal, key);
+    const userPassword = tryDecrypt(pw, keyString);
+
+
+    let exists = false;
+    if(userPassword) {
+    
+
+        const result = await generateGalleryTestFile();
+        
+        console.log("result", result);
+
+        const uploadResult = await uploadFtpFile(host, userName, userPassword, result.filePath, result.filename);
+
+        const websiteResult = await checkWebsiteUrl(websiteUrl, websiteDirectory, result.filename);
+
+        exists = {
+            message: "Login Success is " + websiteResult,
+            protocal: "ftp",
+            success: websiteResult
+        }    
+
+        console.log("Upload FTP FIle Result", uploadResult, websiteResult, result.filename);
+        // exists = await checkFtpCredentials(host, userName, userPassword);
+    } else {
+        exists = {
+            message: "Upload Failure",
+            protocal: "ftp",
+            success: false
+        }
+    }
+
+    res.json(exists);
+}
+
 async function checkSftpCreds(req, res) {
     const { key } = req.body;
 
@@ -98,5 +156,6 @@ module.exports = {
     checkForHostExistence,
     checkProtocols,
     checkFtpCreds,
-    checkSftpCreds
+    checkSftpCreds,
+    uploadTestFtpUpload
 };
