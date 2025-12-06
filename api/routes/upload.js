@@ -5,7 +5,8 @@ const {
     checkForHostExistence,
     checkProtocols,
     checkFtpCreds,
-    checkSftpCreds
+    checkSftpCreds,
+    uploadTestFtpUpload
 } = require('../controllers/uploadController');
 
 /**
@@ -134,6 +135,47 @@ router.post('/checkHost', checkForHostExistence);
  */
 
 router.post('/checkFtpCredentials', checkFtpCreds);
+
+/**
+ * @swagger
+ * /upload/ftpTestUpload:
+ *   post:
+ *     tags: [Upload]
+ *     summary: Checks to see if the provided host and credentials work.
+ *     description: Accepts a host name and credentials and checks to see a successful connection can be made.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - key
+ *             properties:
+ *               key:
+ *                 type: string
+ *                 example: 123
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example: { ftp: true }
+ *       400:
+ *         description: Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid request. Expected { hostName: string }"
+ */
+
+router.post('/ftpTestUpload', uploadTestFtpUpload);
 
 /**
  * @swagger
