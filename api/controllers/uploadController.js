@@ -6,6 +6,7 @@ const {
   checkFtpCredentials,
   checkSftpCredentials,
   uploadFtpFile,
+  uploadSftpFile,
   checkWebsiteUrl
 } = require('../services/uploadService');
 
@@ -100,7 +101,20 @@ async function uploadTestFtpUpload(req, res) {
         
         console.log("result", result);
 
-        const uploadResult = await uploadFtpFile(host, userName, userPassword, result.filePath, result.filename);
+        let remotePath = result.filename;
+
+        if(remoteDirectory.length > 0) {
+            remotePath = `${remoteDirectory}/${remotePath}`;
+        }
+
+        let uploadFtpResult = {};
+        if (transferProtocal === 'ftp') {
+            uploadFtpResult = await uploadFtpFile(host, userName, userPassword, result.filePath, remotePath);
+        } else  {
+            // uploadSftpFile(host, user, password, localPath, remotePath)
+           uploadFtpResult = await uploadSftpFile(host, userName, userPassword, result.filePath, remotePath);
+
+        }
 
         const websiteResult = await checkWebsiteUrl(websiteUrl, websiteDirectory, result.filename);
 
@@ -110,7 +124,6 @@ async function uploadTestFtpUpload(req, res) {
             success: websiteResult
         }    
 
-        console.log("Upload FTP FIle Result", uploadResult, websiteResult, result.filename);
         // exists = await checkFtpCredentials(host, userName, userPassword);
     } else {
         exists = {
