@@ -62,12 +62,39 @@ async function ftpConnect(host, user, password) {
   return client; // return the connected client
 }
 
+async function sftpConnect(host, username, password) {
+  const client = new SftpClient();
+
+  // Optional: enable simple logging (similar to verbose in FTP)
+  client.on('ready', () => console.log('SFTP connection ready'));
+  client.on('error', err => console.error('SFTP error:', err));
+
+  const port = 22;
+  await client.connect({
+    host,
+    port,
+    username,
+    password
+  });
+
+  return client; // return the connected client
+}
+
 async function ftpDisconnect(client) {
   if (!client) return;
   try {
     await client.close();
   } catch (err) {
     console.error("Error closing FTP client:", err.message);
+  }
+}
+
+async function sftpDisconnect(client) {
+  if (!client) return;
+  try {
+    await client.end();
+  } catch (err) {
+    console.error("Error closing SFTP client:", err.message);
   }
 }
 
@@ -94,6 +121,19 @@ async function uploadFtpFile(host, user, password, localPath, remotePath) {
     return { success: false, message: err.message };
   } finally {
     await ftpDisconnect(client);
+  }
+}
+
+async function uploadSftpFile(host, user, password, localPath, remotePath) {
+  let client;
+  try {
+    client = await sftpConnect(host, user, password);
+    await client.put(localPath, remotePath);
+    return { success: true, message: `Uploaded to ${remotePath}` };
+  } catch (err) {
+    return { success: false, message: err.message };
+  } finally {
+    await sftpDisconnect(client);
   }
 }
 
@@ -133,5 +173,6 @@ module.exports = {
   checkFtpCredentials,
   checkSftpCredentials ,
   uploadFtpFile,
-  checkWebsiteUrl
+  checkWebsiteUrl,
+  uploadSftpFile
 };
