@@ -27,7 +27,6 @@ async function moveFileToDir(srcFile, destDir) {
     if (err.code === 'EXDEV') {
       await fs.copyFile(srcFile, destFile);
       await fs.unlink(srcFile);
-      console.log(`Moved (copy+delete) ${srcFile} -> ${destFile}`);
     } else {
       console.error('Error moving file:', err);
     }
@@ -83,7 +82,6 @@ async function createJsonFile(filePath, data) {
   try {
     const jsonString = JSON.stringify(data, null, 2); // pretty print with 2-space indent
     await fs.writeFile(filePath, jsonString, 'utf8');
-    console.log('JSON file created');
   } catch (err) {
     console.error('Failed to write JSON file:', err);
     throw err;
