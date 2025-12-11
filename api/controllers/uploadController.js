@@ -98,10 +98,7 @@ async function uploadTestFtpUpload(req, res) {
     
 
         const result = await generateGalleryTestFile();
-        
-        console.log("result", result);
-
-        let remotePath = result.filename;
+                let remotePath = result.filename;
 
         if(remoteDirectory.length > 0) {
             remotePath = `${remoteDirectory}/${remotePath}`;

@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule,  MatDialog, MatDialogRef  } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { FtpLoginResult, HostProtocalResult, HostResult, ResultType } from '../interfaces/upload-response.interface';
+import { FtpLoginResult, HostProtocalResult, HostResult, ResultType, UploadResult } from '../interfaces/upload-response.interface';
 
 @Component({
   selector: 'app-ftpconfig',
@@ -52,6 +52,7 @@ export class FtpconfigComponent {
   sftpStatus: ResultType = 'unknown';
   ftpCredsStatus: ResultType = 'unknown';
   sftpCredsStatus: ResultType = 'unknown';
+  uploadStatus: ResultType = 'unknown';
 
   constructor(private dialog: MatDialog) {
     this.getConfigData();
@@ -179,6 +180,18 @@ export class FtpconfigComponent {
           this.sftpCredsStatus = "ok";
         } else {
           this.sftpCredsStatus = 'fail';
+        }
+      }
+    );
+  }
+
+  checkUpload(key: string):void {
+     this.apiService.postTestUpload(key).pipe(take(1)).subscribe(
+      (result: UploadResult) => {
+        if (result.success) {
+          this.uploadStatus = "ok";
+        } else {
+          this.uploadStatus = 'fail';
         }
       }
     );

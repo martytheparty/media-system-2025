@@ -51,10 +51,7 @@ async function setTitle(req, res) {
       // await updateJsonFile(galleryPath, gallery);
       const gallery = await getFileJsonContent(galleryPath);
       gallery.title = name;
-      console.log(gallery);
-
       createJsonFile(galleryPath, gallery);
-
       res.json(gallery); 
     } else {
       res.status(409).json({ error: 'File Does Not Exist Yet' });
@@ -102,7 +99,7 @@ async function importMedia(req, res) {
 
     // 4. If not create it and create a first directory
     if (exists) {
-      console.log("directory already exists");
+      
     } else {
       await createDirectory(directory);
     }

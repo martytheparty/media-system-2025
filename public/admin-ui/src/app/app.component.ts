@@ -28,7 +28,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   constructor() {
-    console.log("Constructor");
     this.sub = this.apiService.isInitialized().subscribe(
       (initialized: boolean) => {
         if (!initialized) {

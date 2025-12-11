@@ -201,6 +201,37 @@
 
           </td>
         </tr>
+
+        <tr>
+          <td>Check Uploads<br> ({{ form.controls['host'].value }})</td>
+          <td>
+
+            <div class="flex">
+              <mat-form-field appearance="outline" class="key-field">
+                <input #ukey matInput placeholder="Enter key" />
+              </mat-form-field>
+
+              <button  (click)="checkUpload(ukey.value)" mat-raised-button color="primary" style="margin-left: 8px;">
+                Test
+              </button>
+            </div>
+
+          </td>
+          <td class="centered key-status">
+
+            @if(uploadStatus === 'ok') {
+              <mat-icon color="primary">check_circle</mat-icon>
+            }
+
+            @if(uploadStatus === 'fail') {
+              <mat-icon color="warn">cancel</mat-icon>
+            }
+
+            @if(uploadStatus === 'unknown') {
+              <mat-icon color="disabled">help_outline</mat-icon>
+            }
+          </td>
+        </tr>
       </tbody>
     </table>
   </mat-dialog-content>

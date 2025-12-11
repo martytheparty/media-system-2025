@@ -29,7 +29,6 @@ export class IncomingComponent {
 
   constructor() {
     this.getMediaFiles();
-    console.log(environment.apiBaseUrl);
   }
 
   importFiles(): void {
