@@ -14,4 +14,10 @@ export interface FtpLoginResult {
   success: boolean;
 }
 
+export interface UploadResult {
+  message: string;
+  protocal: 'ftp' | 'sftp';
+  success: boolean;
+}
+
 export type ResultType = 'unknown' | 'ok' | 'fail';

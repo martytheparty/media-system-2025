@@ -6,7 +6,7 @@ import { FileResponse } from '../interfaces/file-response.interface';
 import { FileMetaData } from '../interfaces/files-mesage.interface';
 import { map } from 'rxjs/operators';
 import { FtpConfigData, GalleryData } from '../interfaces/gallery-data-response.interface';
-import { FtpLoginResult, HostProtocalResult, HostResult } from '../interfaces/upload-response.interface';
+import { FtpLoginResult, HostProtocalResult, HostResult, UploadResult } from '../interfaces/upload-response.interface';
 
 
 @Injectable({
@@ -72,5 +72,9 @@ export class ApiService {
 
   postCheckSftpCredentials(key: string): Observable<FtpLoginResult> {
     return this.http.post<FtpLoginResult>(`${this.baseUrl}/upload/checkSftpCredentials`, {key});
+  }
+
+  postTestUpload(key: string): Observable<UploadResult> {
+    return this.http.post<UploadResult>(`${this.baseUrl}/upload/checkSftpCredentials`, {key});
   }
 }
