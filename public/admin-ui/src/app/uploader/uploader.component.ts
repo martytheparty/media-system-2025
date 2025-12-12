@@ -5,13 +5,15 @@ import { GalleryData, GalleryEvent } from '../interfaces/gallery-data-response.i
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-uploader',
   imports: [
     CommonModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    MatButton
   ],
   templateUrl: './uploader.component.html',
   styleUrl: './uploader.component.scss'
@@ -22,7 +24,7 @@ export class UploaderComponent {
 
     galleryData: GalleryData | undefined;
     events: GalleryEvent[] = [];
-    columnsToDisplay = ['title', 'clean', 'uploaded'];
+    columnsToDisplay = ['title', 'clean', 'uploaded','upload'];
 
     constructor() {
       this.apiService.getGalleryData().pipe(take(1)).subscribe(
@@ -33,6 +35,10 @@ export class UploaderComponent {
          }
         } 
       );
+    }
+
+    uploadEvent(event: GalleryEvent): void {
+      console.log('event', event);
     }
 
 }
