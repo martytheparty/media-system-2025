@@ -1,4 +1,5 @@
 const ftpConfigPath = './config/config.json';
+const basePath = '..';
 
 const { 
   checkHostExists, 
@@ -13,7 +14,8 @@ const {
 const { 
   checkFileExistence, 
   getFileJsonContent,
-  generateGalleryTestFile
+  generateGalleryTestFile,
+  getFileListForDirectory
 } = require('../services/filesystemService');
 
 const { tryDecrypt, createKey } = require('../services/ecryptionService');
@@ -162,10 +164,45 @@ async function checkSftpCreds(req, res) {
     res.json(exists);
 }
 
+async function uploadByTitle(req, res) {
+    const { title } = req.body;
+    
+
+    // Find the directory
+
+    let directory = basePath;
+    let remoteDirectory = "";
+
+    const paths = title.split('-');
+    console.log(paths);
+    paths.forEach(
+        (path) => {
+            console.log(path);
+            directory = directory + "/" + path;
+            remoteDirectory = remoteDirectory + "/" + path;
+        }
+    );
+    const files = await getFileListForDirectory(directory);
+
+    const listing = [];
+
+    files.forEach(
+        (file) => {
+            // create a work task for each record
+            const src = `${file.parentPath}/${file.name}`;
+            const dest = `${remoteDirectory}/${file.name}`;
+            listing.push({src, dest});            
+        }
+    );
+
+    res.json(listing);
+}
+
 module.exports = {
     checkForHostExistence,
     checkProtocols,
     checkFtpCreds,
     checkSftpCreds,
-    uploadTestFtpUpload
+    uploadTestFtpUpload,
+    uploadByTitle
 };

@@ -98,6 +98,19 @@ async function getFileJsonContent(filePath) {
   }
 }
 
+async function getFileListForDirectory(directory) {
+  try {
+    const entries = await fs.readdir(directory, { withFileTypes: true });
+
+    // filter only files
+    const files = entries.filter(entry => entry.isFile());
+    return files;
+  } catch (err) {
+    console.error(`Error reading directory: ${err.message}`);
+    return [];
+  }
+}
+
 async function getDirectoryCount(directory) {
   try {
     const entries = await fs.readdir(directory, { withFileTypes: true });
@@ -218,5 +231,6 @@ module.exports = {
   moveFileToDir,
   updateManifest,
   setFtpConfig,
-  generateGalleryTestFile
+  generateGalleryTestFile,
+  getFileListForDirectory
 };
