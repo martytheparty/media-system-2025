@@ -6,7 +6,8 @@ const {
     checkProtocols,
     checkFtpCreds,
     checkSftpCreds,
-    uploadTestFtpUpload
+    uploadTestFtpUpload,
+    uploadByTitle
 } = require('../controllers/uploadController');
 
 /**
@@ -258,5 +259,46 @@ router.post('/sftpTestUpload', uploadTestFtpUpload);
  */
 
 router.post('/checkSftpCredentials', checkSftpCreds);
+
+/**
+ * @swagger
+ * /upload/uploadByTitle:
+ *   post:
+ *     tags: [Upload]
+ *     summary: Checks to see if the provided host and credentials work.
+ *     description: Accepts a host name and credentials and checks to see a successful connection can be made.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: gallery-2025-09-25-1
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example: { fileNames: [] }
+ *       400:
+ *         description: Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid request. Expected { error: string }"
+ */
+
+router.post('/uploadByTitle', uploadByTitle);
 
 module.exports = router;
