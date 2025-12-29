@@ -13,4 +13,7 @@ gallery/*
 # Ignore everything in the test ftp upload folder
 ftp/uploads/*
 
+# Ignore everything in the queued folder
+uploader/queued/*
+
 config.json

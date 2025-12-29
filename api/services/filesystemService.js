@@ -218,6 +218,21 @@ async function generateGalleryTestFile() {
   }
 }
 
+async function createUploadTask(src, dest) {
+  // Dedicated test directory
+  const uploadDir = path.join(__dirname, '../../uploader/queued/');
+  //const timestamp = Date.now();
+  const timestamp = process.hrtime.bigint()
+  const filename = `${uploadDir}upload-task-${timestamp}.txt`;
+
+  const task = {src, dest};
+
+  console.log("Create a task for " + src + " to " + dest);
+  console.log(filename);
+  createJsonFile(filename, task);
+}
+
+
 module.exports = { 
   getMediaFiles,
   getIncomingMediaMeta,
@@ -232,5 +247,6 @@ module.exports = {
   updateManifest,
   setFtpConfig,
   generateGalleryTestFile,
-  getFileListForDirectory
+  getFileListForDirectory,
+  createUploadTask
 };

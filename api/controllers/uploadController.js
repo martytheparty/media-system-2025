@@ -15,7 +15,8 @@ const {
   checkFileExistence, 
   getFileJsonContent,
   generateGalleryTestFile,
-  getFileListForDirectory
+  getFileListForDirectory,
+  createUploadTask
 } = require('../services/filesystemService');
 
 const { tryDecrypt, createKey } = require('../services/ecryptionService');
@@ -176,7 +177,7 @@ async function uploadByTitle(req, res) {
     const paths = title.split('-');
     console.log(paths);
     paths.forEach(
-        (path) => {
+        (path, index) => {
             console.log(path);
             directory = directory + "/" + path;
             remoteDirectory = remoteDirectory + "/" + path;
@@ -191,7 +192,9 @@ async function uploadByTitle(req, res) {
             // create a work task for each record
             const src = `${file.parentPath}/${file.name}`;
             const dest = `${remoteDirectory}/${file.name}`;
-            listing.push({src, dest});            
+            listing.push({src, dest});   
+            createUploadTask(src, dest);
+            
         }
     );
 
