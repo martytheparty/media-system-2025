@@ -1,5 +1,5 @@
 # media-system-2025
-My latest attempt of creating a way for me to share massive numbers of photos and videos.
+My 2025 attempt of creating a way for me to share massive numbers of photos and videos.
 
 OK so this was a great attempt... I tried to create a system that cobbled a collections of apps (web, api, worker...) and well in the end I realized that I am trying to reinvent Electron.  There were a lot
 of issues but the main problem is trying to share state between all of the apps.
